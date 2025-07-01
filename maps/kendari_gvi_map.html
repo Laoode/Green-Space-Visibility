@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d92cb92bae54a5ceaf5a3bb10aef2f42 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    
+                <style>
+                    #float_image_09afd6a37a93810495cf69b6a74238b3 {
+                        position: absolute;
+                        bottom: 10%;
+                        left: 10%;
+                        }
+                </style>
+            
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_d92cb92bae54a5ceaf5a3bb10aef2f42" ></div>
+        
+    
+            <img id="float_image_09afd6a37a93810495cf69b6a74238b3" alt="float_image"
+                 src="data:image/png;base64,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"
+                 style="z-index: 999999">
+            </img>
+            
+</body>
+<script>
+    
+    
+            var map_d92cb92bae54a5ceaf5a3bb10aef2f42 = L.map(
+                "map_d92cb92bae54a5ceaf5a3bb10aef2f42",
+                {
+                    center: [-3.9778, 122.5194],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 15,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e0529ba6e58a14c60e2bfc9c2eb627e6 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e0529ba6e58a14c60e2bfc9c2eb627e6.addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+            var circle_marker_fc1695f288e0bd382b33dbb583d61ddb = L.circleMarker(
+                [-3.976258641180824, 122.5237165008078],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b6e2af", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_0a17ee351dc3f2eca05c9eab238dc736 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_69539d3443f64a3c0c08e36b04577e92 = $(`<div id="html_69539d3443f64a3c0c08e36b04577e92" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik001<br>           <b>GVI Rata-rata:</b> 0.1736<br>           <b>GVI Depan:</b> 0.1397<br>           <b>GVI Kiri:</b> 0.1255<br>           <b>GVI Kanan:</b> 0.2557           </div>`)[0];
+                popup_0a17ee351dc3f2eca05c9eab238dc736.setContent(html_69539d3443f64a3c0c08e36b04577e92);
+            
+        
+
+        circle_marker_fc1695f288e0bd382b33dbb583d61ddb.bindPopup(popup_0a17ee351dc3f2eca05c9eab238dc736)
+        ;
+
+        
+    
+    
+            var circle_marker_b5d17ef385a6bef4b974e686d1cc69b1 = L.circleMarker(
+                [-3.97606023553585, 122.52329879600502],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e0f3db", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_597db1fd9fc7f0a9ab6d2573936fab93 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7fc6502accb32e1f69bf4b739e1fa87f = $(`<div id="html_7fc6502accb32e1f69bf4b739e1fa87f" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik002<br>           <b>GVI Rata-rata:</b> 0.0848<br>           <b>GVI Depan:</b> 0.1588<br>           <b>GVI Kiri:</b> 0.0289<br>           <b>GVI Kanan:</b> 0.0666           </div>`)[0];
+                popup_597db1fd9fc7f0a9ab6d2573936fab93.setContent(html_7fc6502accb32e1f69bf4b739e1fa87f);
+            
+        
+
+        circle_marker_b5d17ef385a6bef4b974e686d1cc69b1.bindPopup(popup_597db1fd9fc7f0a9ab6d2573936fab93)
+        ;
+
+        
+    
+    
+            var circle_marker_221adc5389abc48051918e964015b6e9 = L.circleMarker(
+                [-3.9758642365885, 122.52289445299736],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a7dba0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_b7b668e1fe1392f94f141c9a1231cdee = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ad9336f2f1eabe161091ca4d79a5ce81 = $(`<div id="html_ad9336f2f1eabe161091ca4d79a5ce81" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik003<br>           <b>GVI Rata-rata:</b> 0.2011<br>           <b>GVI Depan:</b> 0.1394<br>           <b>GVI Kiri:</b> 0.0386<br>           <b>GVI Kanan:</b> 0.4254           </div>`)[0];
+                popup_b7b668e1fe1392f94f141c9a1231cdee.setContent(html_ad9336f2f1eabe161091ca4d79a5ce81);
+            
+        
+
+        circle_marker_221adc5389abc48051918e964015b6e9.bindPopup(popup_b7b668e1fe1392f94f141c9a1231cdee)
+        ;
+
+        
+    
+    
+            var circle_marker_c5fd41207caec2d8f76ebe46bba66c0b = L.circleMarker(
+                [-3.975668237593188, 122.5224867572243],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7dc87e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_8f6b6dc46e667595971d9f6a610078c8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7bbdd96c6f565fd045c88f83d4e6c77a = $(`<div id="html_7bbdd96c6f565fd045c88f83d4e6c77a" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik004<br>           <b>GVI Rata-rata:</b> 0.2675<br>           <b>GVI Depan:</b> 0.3615<br>           <b>GVI Kiri:</b> 0.0167<br>           <b>GVI Kanan:</b> 0.4244           </div>`)[0];
+                popup_8f6b6dc46e667595971d9f6a610078c8.setContent(html_7bbdd96c6f565fd045c88f83d4e6c77a);
+            
+        
+
+        circle_marker_c5fd41207caec2d8f76ebe46bba66c0b.bindPopup(popup_8f6b6dc46e667595971d9f6a610078c8)
+        ;
+
+        
+    
+    
+            var circle_marker_d43a3db6daf8606554237588ca2a9c3b = L.circleMarker(
+                [-3.97544288268929, 122.52202833081968],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#18823d", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_6fa3cfe8b30498b8c8cc1911ab4c0fb2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0194bb60360bdf430c05c1ba48e586d2 = $(`<div id="html_0194bb60360bdf430c05c1ba48e586d2" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik005<br>           <b>GVI Rata-rata:</b> 0.4393<br>           <b>GVI Depan:</b> 0.4693<br>           <b>GVI Kiri:</b> 0.2826<br>           <b>GVI Kanan:</b> 0.5658           </div>`)[0];
+                popup_6fa3cfe8b30498b8c8cc1911ab4c0fb2.setContent(html_0194bb60360bdf430c05c1ba48e586d2);
+            
+        
+
+        circle_marker_d43a3db6daf8606554237588ca2a9c3b.bindPopup(popup_6fa3cfe8b30498b8c8cc1911ab4c0fb2)
+        ;
+
+        
+    
+    
+            var circle_marker_e8d252208b0a5171ded96229cf3f94ca = L.circleMarker(
+                [-3.975227314782653, 122.52159029085752],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#107a37", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_7c05fd2b2c6742ae34eed8c14f28ad90 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f2b4edff22472ecdfbdbe1d36ceefeb3 = $(`<div id="html_f2b4edff22472ecdfbdbe1d36ceefeb3" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik006<br>           <b>GVI Rata-rata:</b> 0.4561<br>           <b>GVI Depan:</b> 0.4505<br>           <b>GVI Kiri:</b> 0.5747<br>           <b>GVI Kanan:</b> 0.3431           </div>`)[0];
+                popup_7c05fd2b2c6742ae34eed8c14f28ad90.setContent(html_f2b4edff22472ecdfbdbe1d36ceefeb3);
+            
+        
+
+        circle_marker_e8d252208b0a5171ded96229cf3f94ca.bindPopup(popup_7c05fd2b2c6742ae34eed8c14f28ad90)
+        ;
+
+        
+    
+    
+            var circle_marker_4282eff24a56715f2b4734a3c8134fb8 = L.circleMarker(
+                [-3.975063499199216, 122.5212061859529],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0c7735", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_bc06a821671ccba11484f1a8eb023abe = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a80c62eb59f73aa47a0e027089c37517 = $(`<div id="html_a80c62eb59f73aa47a0e027089c37517" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik007<br>           <b>GVI Rata-rata:</b> 0.4628<br>           <b>GVI Depan:</b> 0.4504<br>           <b>GVI Kiri:</b> 0.4286<br>           <b>GVI Kanan:</b> 0.5093           </div>`)[0];
+                popup_bc06a821671ccba11484f1a8eb023abe.setContent(html_a80c62eb59f73aa47a0e027089c37517);
+            
+        
+
+        circle_marker_4282eff24a56715f2b4734a3c8134fb8.bindPopup(popup_bc06a821671ccba11484f1a8eb023abe)
+        ;
+
+        
+    
+    
+            var circle_marker_4ff0c80aa7334799af931496482ba115 = L.circleMarker(
+                [-3.974930920590432, 122.52084170665644],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#005622", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_20942dccefa9edf58ff9a0088317be07 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ca3937d1ced5da5ccafaac827b83819d = $(`<div id="html_ca3937d1ced5da5ccafaac827b83819d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik008<br>           <b>GVI Rata-rata:</b> 0.5245<br>           <b>GVI Depan:</b> 0.3469<br>           <b>GVI Kiri:</b> 0.7509<br>           <b>GVI Kanan:</b> 0.4758           </div>`)[0];
+                popup_20942dccefa9edf58ff9a0088317be07.setContent(html_ca3937d1ced5da5ccafaac827b83819d);
+            
+        
+
+        circle_marker_4ff0c80aa7334799af931496482ba115.bindPopup(popup_20942dccefa9edf58ff9a0088317be07)
+        ;
+
+        
+    
+    
+            var circle_marker_7f73faf82ce35a1a0b087eaf887f762c = L.circleMarker(
+                [-3.9747436980887727, 122.5204300347924],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7fc97f", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_01d3bec14566b1d0ae1e263e93e84168 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cd90695011cee49cba4409408a2030b1 = $(`<div id="html_cd90695011cee49cba4409408a2030b1" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik009<br>           <b>GVI Rata-rata:</b> 0.2641<br>           <b>GVI Depan:</b> 0.3072<br>           <b>GVI Kiri:</b> 0.4428<br>           <b>GVI Kanan:</b> 0.0421           </div>`)[0];
+                popup_01d3bec14566b1d0ae1e263e93e84168.setContent(html_cd90695011cee49cba4409408a2030b1);
+            
+        
+
+        circle_marker_7f73faf82ce35a1a0b087eaf887f762c.bindPopup(popup_01d3bec14566b1d0ae1e263e93e84168)
+        ;
+
+        
+    
+    
+            var circle_marker_fca95d4f94445575ade937ebee268787 = L.circleMarker(
+                [-3.974545357369696, 122.52002673735603],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8ed08b", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_c12b0ffbe5c2051b597220e0a3083b72 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ba10c02abfdb619581aa9f4f048d27b1 = $(`<div id="html_ba10c02abfdb619581aa9f4f048d27b1" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik010<br>           <b>GVI Rata-rata:</b> 0.2417<br>           <b>GVI Depan:</b> 0.4338<br>           <b>GVI Kiri:</b> 0.1135<br>           <b>GVI Kanan:</b> 0.1778           </div>`)[0];
+                popup_c12b0ffbe5c2051b597220e0a3083b72.setContent(html_ba10c02abfdb619581aa9f4f048d27b1);
+            
+        
+
+        circle_marker_fca95d4f94445575ade937ebee268787.bindPopup(popup_c12b0ffbe5c2051b597220e0a3083b72)
+        ;
+
+        
+    
+    
+            var circle_marker_eb1a331a184db4475b1d369123dc34da = L.circleMarker(
+                [-3.9743547095786806, 122.5196190415841],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#147e3a", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_feca6ffe0d2302fba50bfeb120714690 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9b03ea14e3974fad5466af661281adb7 = $(`<div id="html_9b03ea14e3974fad5466af661281adb7" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik011<br>           <b>GVI Rata-rata:</b> 0.4486<br>           <b>GVI Depan:</b> 0.3210<br>           <b>GVI Kiri:</b> 0.7773<br>           <b>GVI Kanan:</b> 0.2474           </div>`)[0];
+                popup_feca6ffe0d2302fba50bfeb120714690.setContent(html_9b03ea14e3974fad5466af661281adb7);
+            
+        
+
+        circle_marker_eb1a331a184db4475b1d369123dc34da.bindPopup(popup_feca6ffe0d2302fba50bfeb120714690)
+        ;
+
+        
+    
+    
+            var circle_marker_30634144fd40a6e9426eb2ea29e922f1 = L.circleMarker(
+                [-3.974182792060114, 122.51920531083611],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#40aa5d", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_929b0b2fb589c49f08f643400ce05681 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a5df2a32d1e0834d7d55db827be43f76 = $(`<div id="html_a5df2a32d1e0834d7d55db827be43f76" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik012<br>           <b>GVI Rata-rata:</b> 0.3508<br>           <b>GVI Depan:</b> 0.3200<br>           <b>GVI Kiri:</b> 0.4840<br>           <b>GVI Kanan:</b> 0.2483           </div>`)[0];
+                popup_929b0b2fb589c49f08f643400ce05681.setContent(html_a5df2a32d1e0834d7d55db827be43f76);
+            
+        
+
+        circle_marker_30634144fd40a6e9426eb2ea29e922f1.bindPopup(popup_929b0b2fb589c49f08f643400ce05681)
+        ;
+
+        
+    
+    
+            var circle_marker_2d8c8d9794e10c8ac71cd60a858549d6 = L.circleMarker(
+                [-3.9737948068716062, 122.5183932720472],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#63bc6e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_a054b1c71daa660418f051c2c05e5f83 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_55f9683163028cd5d9fffbf80cb209e4 = $(`<div id="html_55f9683163028cd5d9fffbf80cb209e4" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik013<br>           <b>GVI Rata-rata:</b> 0.3037<br>           <b>GVI Depan:</b> 0.2724<br>           <b>GVI Kiri:</b> 0.4818<br>           <b>GVI Kanan:</b> 0.1570           </div>`)[0];
+                popup_a054b1c71daa660418f051c2c05e5f83.setContent(html_55f9683163028cd5d9fffbf80cb209e4);
+            
+        
+
+        circle_marker_2d8c8d9794e10c8ac71cd60a858549d6.bindPopup(popup_a054b1c71daa660418f051c2c05e5f83)
+        ;
+
+        
+    
+    
+            var circle_marker_b64271227003da3b1d3793383dc7dadf = L.circleMarker(
+                [-3.9739887994867815, 122.51880029729008],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9fd899", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_d947d660a7ec2d909932180dbae0efc6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5324338843ccb54b6c216db700142157 = $(`<div id="html_5324338843ccb54b6c216db700142157" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik014<br>           <b>GVI Rata-rata:</b> 0.2147<br>           <b>GVI Depan:</b> 0.4252<br>           <b>GVI Kiri:</b> 0.1210<br>           <b>GVI Kanan:</b> 0.0978           </div>`)[0];
+                popup_d947d660a7ec2d909932180dbae0efc6.setContent(html_5324338843ccb54b6c216db700142157);
+            
+        
+
+        circle_marker_b64271227003da3b1d3793383dc7dadf.bindPopup(popup_d947d660a7ec2d909932180dbae0efc6)
+        ;
+
+        
+    
+    
+            var circle_marker_88c0c856918f7bb51611cde791978142 = L.circleMarker(
+                [-3.973606099489357, 122.51796817269084],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#006529", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_9dadb3e2b3c9483b0d5827a32277a7c5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_15574a774bcd71a75cef91d866a87f2e = $(`<div id="html_15574a774bcd71a75cef91d866a87f2e" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik015<br>           <b>GVI Rata-rata:</b> 0.5004<br>           <b>GVI Depan:</b> 0.4267<br>           <b>GVI Kiri:</b> 0.3430<br>           <b>GVI Kanan:</b> 0.7315           </div>`)[0];
+                popup_9dadb3e2b3c9483b0d5827a32277a7c5.setContent(html_15574a774bcd71a75cef91d866a87f2e);
+            
+        
+
+        circle_marker_88c0c856918f7bb51611cde791978142.bindPopup(popup_9dadb3e2b3c9483b0d5827a32277a7c5)
+        ;
+
+        
+    
+    
+            var circle_marker_170dc8844484664131d4c3ca52860190 = L.circleMarker(
+                [-3.973419801151143, 122.51755590235804],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#37a055", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_66447535d2ced2d34adc2caea0945eb4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e580d711c32581152f69e579c5256b47 = $(`<div id="html_e580d711c32581152f69e579c5256b47" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik016<br>           <b>GVI Rata-rata:</b> 0.3715<br>           <b>GVI Depan:</b> 0.4109<br>           <b>GVI Kiri:</b> 0.3654<br>           <b>GVI Kanan:</b> 0.3383           </div>`)[0];
+                popup_66447535d2ced2d34adc2caea0945eb4.setContent(html_e580d711c32581152f69e579c5256b47);
+            
+        
+
+        circle_marker_170dc8844484664131d4c3ca52860190.bindPopup(popup_66447535d2ced2d34adc2caea0945eb4)
+        ;
+
+        
+    
+    
+            var circle_marker_7f44d6e23a8ee258d9155250a5898088 = L.circleMarker(
+                [-3.97323383568875, 122.51714954772363],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2b934b", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f740d6588d23457536e3cf4c9b513798 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_92d1af97e00f0ba3c6fef144a74cfd00 = $(`<div id="html_92d1af97e00f0ba3c6fef144a74cfd00" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik017<br>           <b>GVI Rata-rata:</b> 0.4004<br>           <b>GVI Depan:</b> 0.2711<br>           <b>GVI Kiri:</b> 0.7189<br>           <b>GVI Kanan:</b> 0.2110           </div>`)[0];
+                popup_f740d6588d23457536e3cf4c9b513798.setContent(html_92d1af97e00f0ba3c6fef144a74cfd00);
+            
+        
+
+        circle_marker_7f44d6e23a8ee258d9155250a5898088.bindPopup(popup_f740d6588d23457536e3cf4c9b513798)
+        ;
+
+        
+    
+    
+            var circle_marker_3925e36886840e4547fdc3f895788492 = L.circleMarker(
+                [-3.973047090464868, 122.51673939772836],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#84cc83", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_a4ba92be8058a1076985bab904f567e0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d5402da1c492d29def1c753fbeffe7cf = $(`<div id="html_d5402da1c492d29def1c753fbeffe7cf" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik018<br>           <b>GVI Rata-rata:</b> 0.2560<br>           <b>GVI Depan:</b> 0.3465<br>           <b>GVI Kiri:</b> 0.0985<br>           <b>GVI Kanan:</b> 0.3231           </div>`)[0];
+                popup_a4ba92be8058a1076985bab904f567e0.setContent(html_d5402da1c492d29def1c753fbeffe7cf);
+            
+        
+
+        circle_marker_3925e36886840e4547fdc3f895788492.bindPopup(popup_a4ba92be8058a1076985bab904f567e0)
+        ;
+
+        
+    
+    
+            var circle_marker_c698ba2b4b6ea183c21a5038b146b36c = L.circleMarker(
+                [-3.9728565182148383, 122.51633359572055],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#92d28f", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_509bfa5dee8f9da0dd5140ebc8162820 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e5078a25e6aa303ea4c78ef07eec71cb = $(`<div id="html_e5078a25e6aa303ea4c78ef07eec71cb" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik019<br>           <b>GVI Rata-rata:</b> 0.2353<br>           <b>GVI Depan:</b> 0.2753<br>           <b>GVI Kiri:</b> 0.0445<br>           <b>GVI Kanan:</b> 0.3860           </div>`)[0];
+                popup_509bfa5dee8f9da0dd5140ebc8162820.setContent(html_e5078a25e6aa303ea4c78ef07eec71cb);
+            
+        
+
+        circle_marker_c698ba2b4b6ea183c21a5038b146b36c.bindPopup(popup_509bfa5dee8f9da0dd5140ebc8162820)
+        ;
+
+        
+    
+    
+            var circle_marker_bf591697336ec42a43c22f1625feb369 = L.circleMarker(
+                [-3.97266339390506, 122.51592377100911],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#aadda4", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f73301203964bd37308d977355963c3b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c77ccca3f090ac866a469c223774ed0 = $(`<div id="html_9c77ccca3f090ac866a469c223774ed0" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik020<br>           <b>GVI Rata-rata:</b> 0.1953<br>           <b>GVI Depan:</b> 0.1037<br>           <b>GVI Kiri:</b> 0.3858<br>           <b>GVI Kanan:</b> 0.0963           </div>`)[0];
+                popup_f73301203964bd37308d977355963c3b.setContent(html_9c77ccca3f090ac866a469c223774ed0);
+            
+        
+
+        circle_marker_bf591697336ec42a43c22f1625feb369.bindPopup(popup_f73301203964bd37308d977355963c3b)
+        ;
+
+        
+    
+    
+            var circle_marker_f7b403aa21223614c3804e117b1ae1c9 = L.circleMarker(
+                [-3.97248813132818, 122.5154966292192],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3aa357", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_e670b015c055fb6d469cc21b983f46a2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_131766107695b592f7f75754ba364dce = $(`<div id="html_131766107695b592f7f75754ba364dce" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik021<br>           <b>GVI Rata-rata:</b> 0.3658<br>           <b>GVI Depan:</b> 0.5423<br>           <b>GVI Kiri:</b> 0.0988<br>           <b>GVI Kanan:</b> 0.4563           </div>`)[0];
+                popup_e670b015c055fb6d469cc21b983f46a2.setContent(html_131766107695b592f7f75754ba364dce);
+            
+        
+
+        circle_marker_f7b403aa21223614c3804e117b1ae1c9.bindPopup(popup_e670b015c055fb6d469cc21b983f46a2)
+        ;
+
+        
+    
+    
+            var circle_marker_8503ae9080f9e539ac39f80cd7cbf8ca = L.circleMarker(
+                [-3.972298292419317, 122.5150665010578],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#52b365", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_95e4b81bfdeff944fb26324a78e9862f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_369dbb5bdd79910609cad0ec6d9b4e1f = $(`<div id="html_369dbb5bdd79910609cad0ec6d9b4e1f" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik022<br>           <b>GVI Rata-rata:</b> 0.3272<br>           <b>GVI Depan:</b> 0.4804<br>           <b>GVI Kiri:</b> 0.0313<br>           <b>GVI Kanan:</b> 0.4700           </div>`)[0];
+                popup_95e4b81bfdeff944fb26324a78e9862f.setContent(html_369dbb5bdd79910609cad0ec6d9b4e1f);
+            
+        
+
+        circle_marker_8503ae9080f9e539ac39f80cd7cbf8ca.bindPopup(popup_95e4b81bfdeff944fb26324a78e9862f)
+        ;
+
+        
+    
+    
+            var circle_marker_814bfac2b0c7515598647948f50b722a = L.circleMarker(
+                [-3.9721088376512967, 122.514635383497],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#18823d", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_961758e95d9e7710704d0fc310229720 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8f7c80827d707543b8f513d64ff4d58f = $(`<div id="html_8f7c80827d707543b8f513d64ff4d58f" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik023<br>           <b>GVI Rata-rata:</b> 0.4385<br>           <b>GVI Depan:</b> 0.4888<br>           <b>GVI Kiri:</b> 0.3196<br>           <b>GVI Kanan:</b> 0.5070           </div>`)[0];
+                popup_961758e95d9e7710704d0fc310229720.setContent(html_8f7c80827d707543b8f513d64ff4d58f);
+            
+        
+
+        circle_marker_814bfac2b0c7515598647948f50b722a.bindPopup(popup_961758e95d9e7710704d0fc310229720)
+        ;
+
+        
+    
+    
+            var circle_marker_1143d9519f755046ac439efcbc453297 = L.circleMarker(
+                [-3.971912368407896, 122.51422629027591],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8dd08a", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_6126c82165a6f312a9bd035943187b19 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_99e38817e630a1b46acbc6c4f803ed74 = $(`<div id="html_99e38817e630a1b46acbc6c4f803ed74" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik024<br>           <b>GVI Rata-rata:</b> 0.2439<br>           <b>GVI Depan:</b> 0.3457<br>           <b>GVI Kiri:</b> 0.0469<br>           <b>GVI Kanan:</b> 0.3391           </div>`)[0];
+                popup_6126c82165a6f312a9bd035943187b19.setContent(html_99e38817e630a1b46acbc6c4f803ed74);
+            
+        
+
+        circle_marker_1143d9519f755046ac439efcbc453297.bindPopup(popup_6126c82165a6f312a9bd035943187b19)
+        ;
+
+        
+    
+    
+            var circle_marker_ef1529de1ed8fa6e699c9e589bd433e0 = L.circleMarker(
+                [-3.97171703196828, 122.51381979094828],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b4e1ad", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_12f82ea02072be84521be7a3bea641f3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1263466903f2120aa3424daad96379d3 = $(`<div id="html_1263466903f2120aa3424daad96379d3" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik025<br>           <b>GVI Rata-rata:</b> 0.1786<br>           <b>GVI Depan:</b> 0.1425<br>           <b>GVI Kiri:</b> 0.0524<br>           <b>GVI Kanan:</b> 0.3408           </div>`)[0];
+                popup_12f82ea02072be84521be7a3bea641f3.setContent(html_1263466903f2120aa3424daad96379d3);
+            
+        
+
+        circle_marker_ef1529de1ed8fa6e699c9e589bd433e0.bindPopup(popup_12f82ea02072be84521be7a3bea641f3)
+        ;
+
+        
+    
+    
+            var circle_marker_f155e5f107c15ffeea6eb61542532e2a = L.circleMarker(
+                [-3.971549111134319, 122.51343733806372],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#37a055", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_db6dd866dc692ff2e3e3e518fc3fa93a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e829756447d7c01f10b63fa565f0c52 = $(`<div id="html_9e829756447d7c01f10b63fa565f0c52" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik026<br>           <b>GVI Rata-rata:</b> 0.3733<br>           <b>GVI Depan:</b> 0.4473<br>           <b>GVI Kiri:</b> 0.2217<br>           <b>GVI Kanan:</b> 0.4509           </div>`)[0];
+                popup_db6dd866dc692ff2e3e3e518fc3fa93a.setContent(html_9e829756447d7c01f10b63fa565f0c52);
+            
+        
+
+        circle_marker_f155e5f107c15ffeea6eb61542532e2a.bindPopup(popup_db6dd866dc692ff2e3e3e518fc3fa93a)
+        ;
+
+        
+    
+    
+            var circle_marker_2c00db35ed315b24ef62bf327a9ec026 = L.circleMarker(
+                [-3.971353774610532, 122.51300679229954],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2a924a", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_c6aa24fbcf202e26b9f2fbfc52e72fbb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3ff8a25b1ee78f68360b06ebf9c27d6c = $(`<div id="html_3ff8a25b1ee78f68360b06ebf9c27d6c" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik027<br>           <b>GVI Rata-rata:</b> 0.4035<br>           <b>GVI Depan:</b> 0.4748<br>           <b>GVI Kiri:</b> 0.3793<br>           <b>GVI Kanan:</b> 0.3565           </div>`)[0];
+                popup_c6aa24fbcf202e26b9f2fbfc52e72fbb.setContent(html_3ff8a25b1ee78f68360b06ebf9c27d6c);
+            
+        
+
+        circle_marker_2c00db35ed315b24ef62bf327a9ec026.bindPopup(popup_c6aa24fbcf202e26b9f2fbfc52e72fbb)
+        ;
+
+        
+    
+    
+            var circle_marker_c27bedfccf86893e8a1cf37a9bbbe666 = L.circleMarker(
+                [-3.971374336351871, 122.51266212667478],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9ed798", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_21c14a2eb2a236e5db923104e9a62085 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_114a8710d07d1343dee273551de81ee3 = $(`<div id="html_114a8710d07d1343dee273551de81ee3" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik028<br>           <b>GVI Rata-rata:</b> 0.2169<br>           <b>GVI Depan:</b> 0.2616<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.3891           </div>`)[0];
+                popup_21c14a2eb2a236e5db923104e9a62085.setContent(html_114a8710d07d1343dee273551de81ee3);
+            
+        
+
+        circle_marker_c27bedfccf86893e8a1cf37a9bbbe666.bindPopup(popup_21c14a2eb2a236e5db923104e9a62085)
+        ;
+
+        
+    
+    
+            var circle_marker_3b48e358f3df96531ffb585daa9480a1 = L.circleMarker(
+                [-3.971782144115149, 122.51246861009464],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d8f0d2", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_1f903e6c1896fcc12ad3ec3c04a77d30 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_576d146387602ccb1daaf063fb5e7b7c = $(`<div id="html_576d146387602ccb1daaf063fb5e7b7c" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik029<br>           <b>GVI Rata-rata:</b> 0.1046<br>           <b>GVI Depan:</b> 0.1030<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.2108           </div>`)[0];
+                popup_1f903e6c1896fcc12ad3ec3c04a77d30.setContent(html_576d146387602ccb1daaf063fb5e7b7c);
+            
+        
+
+        circle_marker_3b48e358f3df96531ffb585daa9480a1.bindPopup(popup_1f903e6c1896fcc12ad3ec3c04a77d30)
+        ;
+
+        
+    
+    
+            var circle_marker_e955c36a52191f09214208b69aba766d = L.circleMarker(
+                [-3.972189692643488, 122.51227086673312],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ccebc6", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_03611cb7da9a2f57f80a97ae274f8562 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7480650fde27ce9df4c19cc781bf0e63 = $(`<div id="html_7480650fde27ce9df4c19cc781bf0e63" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik030<br>           <b>GVI Rata-rata:</b> 0.1305<br>           <b>GVI Depan:</b> 0.1516<br>           <b>GVI Kiri:</b> 0.0101<br>           <b>GVI Kanan:</b> 0.2298           </div>`)[0];
+                popup_03611cb7da9a2f57f80a97ae274f8562.setContent(html_7480650fde27ce9df4c19cc781bf0e63);
+            
+        
+
+        circle_marker_e955c36a52191f09214208b69aba766d.bindPopup(popup_03611cb7da9a2f57f80a97ae274f8562)
+        ;
+
+        
+    
+    
+            var circle_marker_7bffb78357ec22c78aafd96996e55be1 = L.circleMarker(
+                [-3.972389592229524, 122.51266845461308],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#88ce87", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_d7a7ae28aba61eec0023dbafe31c4a39 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f2362b841ab3e8867d925d13c7fb5655 = $(`<div id="html_f2362b841ab3e8867d925d13c7fb5655" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik031<br>           <b>GVI Rata-rata:</b> 0.2503<br>           <b>GVI Depan:</b> 0.2028<br>           <b>GVI Kiri:</b> 0.1537<br>           <b>GVI Kanan:</b> 0.3942           </div>`)[0];
+                popup_d7a7ae28aba61eec0023dbafe31c4a39.setContent(html_f2362b841ab3e8867d925d13c7fb5655);
+            
+        
+
+        circle_marker_7bffb78357ec22c78aafd96996e55be1.bindPopup(popup_d7a7ae28aba61eec0023dbafe31c4a39)
+        ;
+
+        
+    
+    
+            var circle_marker_373db3a7510eba62a5ec3953a9eec010 = L.circleMarker(
+                [-3.972576568701653, 122.5130759041265],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#70c274", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_05c95519db96d52ad4f8d3b2da0bedb1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_19ad3b15000dbf0ade54ffcbc406b601 = $(`<div id="html_19ad3b15000dbf0ade54ffcbc406b601" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik032<br>           <b>GVI Rata-rata:</b> 0.2866<br>           <b>GVI Depan:</b> 0.2118<br>           <b>GVI Kiri:</b> 0.1941<br>           <b>GVI Kanan:</b> 0.4537           </div>`)[0];
+                popup_05c95519db96d52ad4f8d3b2da0bedb1.setContent(html_19ad3b15000dbf0ade54ffcbc406b601);
+            
+        
+
+        circle_marker_373db3a7510eba62a5ec3953a9eec010.bindPopup(popup_05c95519db96d52ad4f8d3b2da0bedb1)
+        ;
+
+        
+    
+    
+            var circle_marker_0162cc17f745fe272152b8f45e4a8fa6 = L.circleMarker(
+                [-3.9727693084088607, 122.5134743115761],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#aadda4", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_2b3cc33c43ffd0fd9dab7bba9e75567b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bd6caefa4cd92010f347cf09d04bb1a9 = $(`<div id="html_bd6caefa4cd92010f347cf09d04bb1a9" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik033<br>           <b>GVI Rata-rata:</b> 0.1952<br>           <b>GVI Depan:</b> 0.1025<br>           <b>GVI Kiri:</b> 0.0421<br>           <b>GVI Kanan:</b> 0.4412           </div>`)[0];
+                popup_2b3cc33c43ffd0fd9dab7bba9e75567b.setContent(html_bd6caefa4cd92010f347cf09d04bb1a9);
+            
+        
+
+        circle_marker_0162cc17f745fe272152b8f45e4a8fa6.bindPopup(popup_2b3cc33c43ffd0fd9dab7bba9e75567b)
+        ;
+
+        
+    
+    
+            var circle_marker_4249386d479e8d70a0229867ad9269d1 = L.circleMarker(
+                [-3.972979047135139, 122.51389316967337],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b2e0ac", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_18a9f4111a5555355454731747167f01 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fd53d40f38f3ddde993f816feac9307d = $(`<div id="html_fd53d40f38f3ddde993f816feac9307d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik034<br>           <b>GVI Rata-rata:</b> 0.1813<br>           <b>GVI Depan:</b> 0.2220<br>           <b>GVI Kiri:</b> 0.0735<br>           <b>GVI Kanan:</b> 0.2486           </div>`)[0];
+                popup_18a9f4111a5555355454731747167f01.setContent(html_fd53d40f38f3ddde993f816feac9307d);
+            
+        
+
+        circle_marker_4249386d479e8d70a0229867ad9269d1.bindPopup(popup_18a9f4111a5555355454731747167f01)
+        ;
+
+        
+    
+    
+            var circle_marker_0c5b5393e684a7c5a6030b4ff5b6b2e8 = L.circleMarker(
+                [-3.9731757787551545, 122.51429247019168],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c7e9c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_b522fd729ba434afe3787d4f7bdbbc91 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ec796e0b07d1a3d90b1fcfdd205ecb72 = $(`<div id="html_ec796e0b07d1a3d90b1fcfdd205ecb72" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik035<br>           <b>GVI Rata-rata:</b> 0.1436<br>           <b>GVI Depan:</b> 0.1581<br>           <b>GVI Kiri:</b> 0.0005<br>           <b>GVI Kanan:</b> 0.2720           </div>`)[0];
+                popup_b522fd729ba434afe3787d4f7bdbbc91.setContent(html_ec796e0b07d1a3d90b1fcfdd205ecb72);
+            
+        
+
+        circle_marker_0c5b5393e684a7c5a6030b4ff5b6b2e8.bindPopup(popup_b522fd729ba434afe3787d4f7bdbbc91)
+        ;
+
+        
+    
+    
+            var circle_marker_cde6d4aa75e22d32a3eeb936c015e108 = L.circleMarker(
+                [-3.973364380931741, 122.5146885111239],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e5f5e1", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_cd7d535493e059c19aceb190c1da6f8a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9781ed48714fb539a83cd2ed8ceeae71 = $(`<div id="html_9781ed48714fb539a83cd2ed8ceeae71" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik036<br>           <b>GVI Rata-rata:</b> 0.0723<br>           <b>GVI Depan:</b> 0.1114<br>           <b>GVI Kiri:</b> 0.0373<br>           <b>GVI Kanan:</b> 0.0682           </div>`)[0];
+                popup_cd7d535493e059c19aceb190c1da6f8a.setContent(html_9781ed48714fb539a83cd2ed8ceeae71);
+            
+        
+
+        circle_marker_cde6d4aa75e22d32a3eeb936c015e108.bindPopup(popup_cd7d535493e059c19aceb190c1da6f8a)
+        ;
+
+        
+    
+    
+            var circle_marker_06db499a0cdb26f213ab51ec63d73933 = L.circleMarker(
+                [-3.973564364220281, 122.5151073692186],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c7e9c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_fa4732f22b8b65af0167cdccb92af338 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3ac5ae68bc1428df293f512b61b6a858 = $(`<div id="html_3ac5ae68bc1428df293f512b61b6a858" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik037<br>           <b>GVI Rata-rata:</b> 0.1441<br>           <b>GVI Depan:</b> 0.1012<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.3312           </div>`)[0];
+                popup_fa4732f22b8b65af0167cdccb92af338.setContent(html_3ac5ae68bc1428df293f512b61b6a858);
+            
+        
+
+        circle_marker_06db499a0cdb26f213ab51ec63d73933.bindPopup(popup_fa4732f22b8b65af0167cdccb92af338)
+        ;
+
+        
+    
+    
+            var circle_marker_59f3ec8f7636731c8725350d3fefe83c = L.circleMarker(
+                [-3.9737741027489712, 122.51550341015164],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#acdea6", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_609a925ff89c936e84f56cccb29a3d11 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1cfcf3c337ad11ee3b5da6d5dcc5b7e9 = $(`<div id="html_1cfcf3c337ad11ee3b5da6d5dcc5b7e9" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik038<br>           <b>GVI Rata-rata:</b> 0.1908<br>           <b>GVI Depan:</b> 0.1606<br>           <b>GVI Kiri:</b> 0.0008<br>           <b>GVI Kanan:</b> 0.4109           </div>`)[0];
+                popup_609a925ff89c936e84f56cccb29a3d11.setContent(html_1cfcf3c337ad11ee3b5da6d5dcc5b7e9);
+            
+        
+
+        circle_marker_59f3ec8f7636731c8725350d3fefe83c.bindPopup(popup_609a925ff89c936e84f56cccb29a3d11)
+        ;
+
+        
+    
+    
+            var circle_marker_d0bc1e19d5309e8c5c9de56793076d7f = L.circleMarker(
+                [-3.973953052422337, 122.51590782533242],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#45ad5f", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_a68714ade79461da95fe8f9215c317d8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_092590770cabae9fb29c7e4df292c0af = $(`<div id="html_092590770cabae9fb29c7e4df292c0af" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik039<br>           <b>GVI Rata-rata:</b> 0.3449<br>           <b>GVI Depan:</b> 0.2142<br>           <b>GVI Kiri:</b> 0.4116<br>           <b>GVI Kanan:</b> 0.4089           </div>`)[0];
+                popup_a68714ade79461da95fe8f9215c317d8.setContent(html_092590770cabae9fb29c7e4df292c0af);
+            
+        
+
+        circle_marker_d0bc1e19d5309e8c5c9de56793076d7f.bindPopup(popup_a68714ade79461da95fe8f9215c317d8)
+        ;
+
+        
+    
+    
+            var circle_marker_aeb8dee1a9bd39dada8dca687e9f15e4 = L.circleMarker(
+                [-3.974135581279481, 122.51631118836028],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a8dca2", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_bffaedcbc17ab52b8a31ac701fd090fa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f8719073da908dcd9eb33702cc74dc9a = $(`<div id="html_f8719073da908dcd9eb33702cc74dc9a" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik040<br>           <b>GVI Rata-rata:</b> 0.1992<br>           <b>GVI Depan:</b> 0.1446<br>           <b>GVI Kiri:</b> 0.0273<br>           <b>GVI Kanan:</b> 0.4258           </div>`)[0];
+                popup_bffaedcbc17ab52b8a31ac701fd090fa.setContent(html_f8719073da908dcd9eb33702cc74dc9a);
+            
+        
+
+        circle_marker_aeb8dee1a9bd39dada8dca687e9f15e4.bindPopup(popup_bffaedcbc17ab52b8a31ac701fd090fa)
+        ;
+
+        
+    
+    
+            var circle_marker_003ea0c03e194d5984ff09ea06e182f9 = L.circleMarker(
+                [-3.974351297157976, 122.5167270265438],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b2e0ac", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_5d571b0db509be4d880f13837fa1ad04 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3ddfa707a5690858b31d642bac3631c3 = $(`<div id="html_3ddfa707a5690858b31d642bac3631c3" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik041<br>           <b>GVI Rata-rata:</b> 0.1801<br>           <b>GVI Depan:</b> 0.1544<br>           <b>GVI Kiri:</b> 0.0454<br>           <b>GVI Kanan:</b> 0.3406           </div>`)[0];
+                popup_5d571b0db509be4d880f13837fa1ad04.setContent(html_3ddfa707a5690858b31d642bac3631c3);
+            
+        
+
+        circle_marker_003ea0c03e194d5984ff09ea06e182f9.bindPopup(popup_5d571b0db509be4d880f13837fa1ad04)
+        ;
+
+        
+    
+    
+            var circle_marker_3f77282f6c0b747cd5f1ff12fcad7da4 = L.circleMarker(
+                [-3.9745483452561583, 122.51712623118816],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#afdfa8", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_d80e750eda95bbe031752f1d9e4f45c7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9b11a8df9ce3f866aad31fca83265953 = $(`<div id="html_9b11a8df9ce3f866aad31fca83265953" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik042<br>           <b>GVI Rata-rata:</b> 0.1875<br>           <b>GVI Depan:</b> 0.1883<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.3743           </div>`)[0];
+                popup_d80e750eda95bbe031752f1d9e4f45c7.setContent(html_9b11a8df9ce3f866aad31fca83265953);
+            
+        
+
+        circle_marker_3f77282f6c0b747cd5f1ff12fcad7da4.bindPopup(popup_d80e750eda95bbe031752f1d9e4f45c7)
+        ;
+
+        
+    
+    
+            var circle_marker_3cb257f8713d6949787fe84665a0cbda = L.circleMarker(
+                [-3.974737096548139, 122.51753999016854],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4eb264", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_a3ba4a1e462f10b78212f066271c7a97 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_be5d0ba9f9c71c90d4723db528993e24 = $(`<div id="html_be5d0ba9f9c71c90d4723db528993e24" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik043<br>           <b>GVI Rata-rata:</b> 0.3310<br>           <b>GVI Depan:</b> 0.2690<br>           <b>GVI Kiri:</b> 0.2537<br>           <b>GVI Kanan:</b> 0.4704           </div>`)[0];
+                popup_a3ba4a1e462f10b78212f066271c7a97.setContent(html_be5d0ba9f9c71c90d4723db528993e24);
+            
+        
+
+        circle_marker_3cb257f8713d6949787fe84665a0cbda.bindPopup(popup_a3ba4a1e462f10b78212f066271c7a97)
+        ;
+
+        
+    
+    
+            var circle_marker_427ec221c41b4b29d32354f2235fe05b = L.circleMarker(
+                [-3.97492584780544, 122.51794335320746],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#acdea6", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f92bdefabb07f4adfdd46ead15027aad = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e0fc15c05d5e37b1396b3f8251917d48 = $(`<div id="html_e0fc15c05d5e37b1396b3f8251917d48" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik044<br>           <b>GVI Rata-rata:</b> 0.1904<br>           <b>GVI Depan:</b> 0.1026<br>           <b>GVI Kiri:</b> 0.0045<br>           <b>GVI Kanan:</b> 0.4640           </div>`)[0];
+                popup_f92bdefabb07f4adfdd46ead15027aad.setContent(html_e0fc15c05d5e37b1396b3f8251917d48);
+            
+        
+
+        circle_marker_427ec221c41b4b29d32354f2235fe05b.bindPopup(popup_f92bdefabb07f4adfdd46ead15027aad)
+        ;
+
+        
+    
+    
+            var circle_marker_3a1808e6ee67d25c61372566f2052f71 = L.circleMarker(
+                [-3.975120821577487, 122.51834671623358],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#68be70", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_19027a8c091c80baba7c35b2a488d653 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c1c8cba8d0a37ce25f7328910fc8ce19 = $(`<div id="html_c1c8cba8d0a37ce25f7328910fc8ce19" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik045<br>           <b>GVI Rata-rata:</b> 0.2969<br>           <b>GVI Depan:</b> 0.3198<br>           <b>GVI Kiri:</b> 0.1825<br>           <b>GVI Kanan:</b> 0.3882           </div>`)[0];
+                popup_19027a8c091c80baba7c35b2a488d653.setContent(html_c1c8cba8d0a37ce25f7328910fc8ce19);
+            
+        
+
+        circle_marker_3a1808e6ee67d25c61372566f2052f71.bindPopup(popup_19027a8c091c80baba7c35b2a488d653)
+        ;
+
+        
+    
+    
+            var circle_marker_f07fe84879d763e4063906468006b839 = L.circleMarker(
+                [-3.975317869495447, 122.51876047521976],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8dd08a", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_8091bd9858ee019ef21f54cdfee18c06 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6260c9162cd44bf7ec96e32cf5358ec1 = $(`<div id="html_6260c9162cd44bf7ec96e32cf5358ec1" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik046<br>           <b>GVI Rata-rata:</b> 0.2434<br>           <b>GVI Depan:</b> 0.1461<br>           <b>GVI Kiri:</b> 0.0437<br>           <b>GVI Kanan:</b> 0.5404           </div>`)[0];
+                popup_8091bd9858ee019ef21f54cdfee18c06.setContent(html_6260c9162cd44bf7ec96e32cf5358ec1);
+            
+        
+
+        circle_marker_f07fe84879d763e4063906468006b839.bindPopup(popup_8091bd9858ee019ef21f54cdfee18c06)
+        ;
+
+        
+    
+    
+            var circle_marker_5ca27bd0f4fce5ea10027d38e728aa24 = L.circleMarker(
+                [-3.975510768991446, 122.51915967987274],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#68be70", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_3702150be74fcda6edbd5cb35b9aaaa2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b67d84c082d87d90d7945758181f0795 = $(`<div id="html_b67d84c082d87d90d7945758181f0795" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik047<br>           <b>GVI Rata-rata:</b> 0.2971<br>           <b>GVI Depan:</b> 0.2536<br>           <b>GVI Kiri:</b> 0.2084<br>           <b>GVI Kanan:</b> 0.4294           </div>`)[0];
+                popup_3702150be74fcda6edbd5cb35b9aaaa2.setContent(html_b67d84c082d87d90d7945758181f0795);
+            
+        
+
+        circle_marker_5ca27bd0f4fce5ea10027d38e728aa24.bindPopup(popup_3702150be74fcda6edbd5cb35b9aaaa2)
+        ;
+
+        
+    
+    
+            var circle_marker_160e618d4d88adb81f55ef191b948f64 = L.circleMarker(
+                [-3.975701594254664, 122.51957135966704],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a843f", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_e5431c63347274935e3c88fa0182303e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4be7ed5f9c77c1544af49401d4d0516d = $(`<div id="html_4be7ed5f9c77c1544af49401d4d0516d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik048<br>           <b>GVI Rata-rata:</b> 0.4350<br>           <b>GVI Depan:</b> 0.3581<br>           <b>GVI Kiri:</b> 0.5386<br>           <b>GVI Kanan:</b> 0.4083           </div>`)[0];
+                popup_e5431c63347274935e3c88fa0182303e.setContent(html_4be7ed5f9c77c1544af49401d4d0516d);
+            
+        
+
+        circle_marker_160e618d4d88adb81f55ef191b948f64.bindPopup(popup_e5431c63347274935e3c88fa0182303e)
+        ;
+
+        
+    
+    
+            var circle_marker_4c5b780d4981050e16a7879a403fcbeb = L.circleMarker(
+                [-3.9759131613380414, 122.5199705643114],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4bb062", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_c6950a561da72e76a1c4401817b39e50 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ab514f5724c29f16df57b05f35ac8039 = $(`<div id="html_ab514f5724c29f16df57b05f35ac8039" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik049<br>           <b>GVI Rata-rata:</b> 0.3362<br>           <b>GVI Depan:</b> 0.3572<br>           <b>GVI Kiri:</b> 0.2755<br>           <b>GVI Kanan:</b> 0.3759           </div>`)[0];
+                popup_c6950a561da72e76a1c4401817b39e50.setContent(html_ab514f5724c29f16df57b05f35ac8039);
+            
+        
+
+        circle_marker_4c5b780d4981050e16a7879a403fcbeb.bindPopup(popup_c6950a561da72e76a1c4401817b39e50)
+        ;
+
+        
+    
+    
+            var circle_marker_417b284edbcbd50c641b0507f791d05f = L.circleMarker(
+                [-3.976106060694669, 122.52036561057776],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#38a156", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_dbd3d081d9a541522deebdf2a6962072 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5dd4114d1f394fcc1823eb4d9367633e = $(`<div id="html_5dd4114d1f394fcc1823eb4d9367633e" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik050<br>           <b>GVI Rata-rata:</b> 0.3701<br>           <b>GVI Depan:</b> 0.3674<br>           <b>GVI Kiri:</b> 0.2405<br>           <b>GVI Kanan:</b> 0.5023           </div>`)[0];
+                popup_dbd3d081d9a541522deebdf2a6962072.setContent(html_5dd4114d1f394fcc1823eb4d9367633e);
+            
+        
+
+        circle_marker_417b284edbcbd50c641b0507f791d05f.bindPopup(popup_dbd3d081d9a541522deebdf2a6962072)
+        ;
+
+        
+    
+    
+            var circle_marker_91c13656976ee7372bbe77d0a0af70a1 = L.circleMarker(
+                [-3.976321776053104, 122.52078352794506],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b5e1ae", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_e9e09442b516b970d9a7d6a631fe7012 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3a7a4e4e1483e5e42b7b182be3e875fb = $(`<div id="html_3a7a4e4e1483e5e42b7b182be3e875fb" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik051<br>           <b>GVI Rata-rata:</b> 0.1773<br>           <b>GVI Depan:</b> 0.2518<br>           <b>GVI Kiri:</b> 0.0685<br>           <b>GVI Kanan:</b> 0.2115           </div>`)[0];
+                popup_e9e09442b516b970d9a7d6a631fe7012.setContent(html_3a7a4e4e1483e5e42b7b182be3e875fb);
+            
+        
+
+        circle_marker_91c13656976ee7372bbe77d0a0af70a1.bindPopup(popup_e9e09442b516b970d9a7d6a631fe7012)
+        ;
+
+        
+    
+    
+            var circle_marker_713ce24c0fd56baafcbe446f4f648ddf = L.circleMarker(
+                [-3.976591420167686, 122.52095402160263],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#60ba6c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_87a21f0610ab8aaa4c97962837d6eb6d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6700489efdc8de4be845c32c198cdd04 = $(`<div id="html_6700489efdc8de4be845c32c198cdd04" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik052<br>           <b>GVI Rata-rata:</b> 0.3082<br>           <b>GVI Depan:</b> 0.4665<br>           <b>GVI Kiri:</b> 0.4076<br>           <b>GVI Kanan:</b> 0.0504           </div>`)[0];
+                popup_87a21f0610ab8aaa4c97962837d6eb6d.setContent(html_6700489efdc8de4be845c32c198cdd04);
+            
+        
+
+        circle_marker_713ce24c0fd56baafcbe446f4f648ddf.bindPopup(popup_87a21f0610ab8aaa4c97962837d6eb6d)
+        ;
+
+        
+    
+    
+            var circle_marker_62b249bb2ffb417cc3bce6a30487843e = L.circleMarker(
+                [-3.9770041829097607, 122.52072738979696],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#006227", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_8360f5eb1e8cad6df6abb48bf39a6b07 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1b94a85b5a8f055be083921dc8fb3af7 = $(`<div id="html_1b94a85b5a8f055be083921dc8fb3af7" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik053<br>           <b>GVI Rata-rata:</b> 0.5062<br>           <b>GVI Depan:</b> 0.5463<br>           <b>GVI Kiri:</b> 0.3659<br>           <b>GVI Kanan:</b> 0.6065           </div>`)[0];
+                popup_8360f5eb1e8cad6df6abb48bf39a6b07.setContent(html_1b94a85b5a8f055be083921dc8fb3af7);
+            
+        
+
+        circle_marker_62b249bb2ffb417cc3bce6a30487843e.bindPopup(popup_8360f5eb1e8cad6df6abb48bf39a6b07)
+        ;
+
+        
+    
+    
+            var circle_marker_cea305d6c96594a8917ff794af93d51e = L.circleMarker(
+                [-3.9774169454473776, 122.52054234180837],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00441b", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_ee13269279b8c10cde8926520154f5de = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ab2ed3681bb66ea4435507b8df72ca86 = $(`<div id="html_ab2ed3681bb66ea4435507b8df72ca86" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik054<br>           <b>GVI Rata-rata:</b> 0.5565<br>           <b>GVI Depan:</b> 0.3795<br>           <b>GVI Kiri:</b> 0.6598<br>           <b>GVI Kanan:</b> 0.6303           </div>`)[0];
+                popup_ee13269279b8c10cde8926520154f5de.setContent(html_ab2ed3681bb66ea4435507b8df72ca86);
+            
+        
+
+        circle_marker_cea305d6c96594a8917ff794af93d51e.bindPopup(popup_ee13269279b8c10cde8926520154f5de)
+        ;
+
+        
+    
+    
+            var circle_marker_7e44f74eb1aaae6cf7c11710e6f0bb37 = L.circleMarker(
+                [-3.97781726268158, 122.52034481867486],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b7e2b1", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_4226afbb34315768ef9ae3bf468569f6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3c36894c27f2ce9d83e260e64919b7ba = $(`<div id="html_3c36894c27f2ce9d83e260e64919b7ba" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik055<br>           <b>GVI Rata-rata:</b> 0.1711<br>           <b>GVI Depan:</b> 0.2076<br>           <b>GVI Kiri:</b> 0.0156<br>           <b>GVI Kanan:</b> 0.2900           </div>`)[0];
+                popup_4226afbb34315768ef9ae3bf468569f6.setContent(html_3c36894c27f2ce9d83e260e64919b7ba);
+            
+        
+
+        circle_marker_7e44f74eb1aaae6cf7c11710e6f0bb37.bindPopup(popup_4226afbb34315768ef9ae3bf468569f6)
+        ;
+
+        
+    
+    
+            var circle_marker_21e7d1d71095b3a6a15ae96336cfee4c = L.circleMarker(
+                [-3.977968677957062, 122.52006204871262],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d8f0d2", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_840a0b9dcd76d628e6fd7577d80e5537 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c15cba1c96ce9d3832b803e0b562479a = $(`<div id="html_c15cba1c96ce9d3832b803e0b562479a" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik056<br>           <b>GVI Rata-rata:</b> 0.1048<br>           <b>GVI Depan:</b> 0.1055<br>           <b>GVI Kiri:</b> 0.1176<br>           <b>GVI Kanan:</b> 0.0912           </div>`)[0];
+                popup_840a0b9dcd76d628e6fd7577d80e5537.setContent(html_c15cba1c96ce9d3832b803e0b562479a);
+            
+        
+
+        circle_marker_21e7d1d71095b3a6a15ae96336cfee4c.bindPopup(popup_840a0b9dcd76d628e6fd7577d80e5537)
+        ;
+
+        
+    
+    
+            var circle_marker_c1b65667f7ed24f4ac5b66549706027b = L.circleMarker(
+                [-3.977779927405068, 122.51965244811392],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6f5e1", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f42918f4aa388ac74a6e01980ed48ced = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_33cded3084e7f04d47861717f494a2e6 = $(`<div id="html_33cded3084e7f04d47861717f494a2e6" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik057<br>           <b>GVI Rata-rata:</b> 0.0715<br>           <b>GVI Depan:</b> 0.1511<br>           <b>GVI Kiri:</b> 0.0271<br>           <b>GVI Kanan:</b> 0.0364           </div>`)[0];
+                popup_f42918f4aa388ac74a6e01980ed48ced.setContent(html_33cded3084e7f04d47861717f494a2e6);
+            
+        
+
+        circle_marker_c1b65667f7ed24f4ac5b66549706027b.bindPopup(popup_f42918f4aa388ac74a6e01980ed48ced)
+        ;
+
+        
+    
+    
+            var circle_marker_1f0fe85bdf71725efaa9a95d848045e1 = L.circleMarker(
+                [-3.977589102627241, 122.51924908508784],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#acdea6", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_08435082b54c01a9e83711c468430429 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a35cd86b4aa6e697c03f5a5ea1e3cf48 = $(`<div id="html_a35cd86b4aa6e697c03f5a5ea1e3cf48" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik058<br>           <b>GVI Rata-rata:</b> 0.1924<br>           <b>GVI Depan:</b> 0.1659<br>           <b>GVI Kiri:</b> 0.3409<br>           <b>GVI Kanan:</b> 0.0702           </div>`)[0];
+                popup_08435082b54c01a9e83711c468430429.setContent(html_a35cd86b4aa6e697c03f5a5ea1e3cf48);
+            
+        
+
+        circle_marker_1f0fe85bdf71725efaa9a95d848045e1.bindPopup(popup_08435082b54c01a9e83711c468430429)
+        ;
+
+        
+    
+    
+            var circle_marker_61219dce67722236d80c6ef755837ff2 = L.circleMarker(
+                [-3.977394129432248, 122.51882285095068],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c9eac2", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_2c61bc40a3c3415f7ea546157cf698e4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a2677718b3ce8e20db318daab904220c = $(`<div id="html_a2677718b3ce8e20db318daab904220c" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik059<br>           <b>GVI Rata-rata:</b> 0.1396<br>           <b>GVI Depan:</b> 0.0764<br>           <b>GVI Kiri:</b> 0.1962<br>           <b>GVI Kanan:</b> 0.1461           </div>`)[0];
+                popup_2c61bc40a3c3415f7ea546157cf698e4.setContent(html_a2677718b3ce8e20db318daab904220c);
+            
+        
+
+        circle_marker_61219dce67722236d80c6ef755837ff2.bindPopup(popup_2c61bc40a3c3415f7ea546157cf698e4)
+        ;
+
+        
+    
+    
+            var circle_marker_6764676e0f0075ea185b6efa62c96dca = L.circleMarker(
+                [-3.977226120579616, 122.5184194879157],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e5f5e0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_e86e3030536359c1b9d6735b6afef5ab = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d8c7a9155e14c7eadce8630d772e8cc0 = $(`<div id="html_d8c7a9155e14c7eadce8630d772e8cc0" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik060<br>           <b>GVI Rata-rata:</b> 0.0755<br>           <b>GVI Depan:</b> 0.1087<br>           <b>GVI Kiri:</b> 0.1180<br>           <b>GVI Kanan:</b> 0.0000           </div>`)[0];
+                popup_e86e3030536359c1b9d6735b6afef5ab.setContent(html_d8c7a9155e14c7eadce8630d772e8cc0);
+            
+        
+
+        circle_marker_6764676e0f0075ea185b6efa62c96dca.bindPopup(popup_e86e3030536359c1b9d6735b6afef5ab)
+        ;
+
+        
+    
+    
+            var circle_marker_131a9a87e559008a118170f9105c7bbd = L.circleMarker(
+                [-3.977031147305517, 122.51800988731702],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7ac77b", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_8af930dc9216bba269a7c5c0937796d4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5b994e1f64cb87506c1f8fd92d033f4c = $(`<div id="html_5b994e1f64cb87506c1f8fd92d033f4c" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik061<br>           <b>GVI Rata-rata:</b> 0.2718<br>           <b>GVI Depan:</b> 0.3277<br>           <b>GVI Kiri:</b> 0.3505<br>           <b>GVI Kanan:</b> 0.1373           </div>`)[0];
+                popup_8af930dc9216bba269a7c5c0937796d4.setContent(html_5b994e1f64cb87506c1f8fd92d033f4c);
+            
+        
+
+        circle_marker_131a9a87e559008a118170f9105c7bbd.bindPopup(popup_8af930dc9216bba269a7c5c0937796d4)
+        ;
+
+        
+    
+    
+            var circle_marker_4f9eb6a88203f6cbf00d448004a6a378 = L.circleMarker(
+                [-3.976846544907758, 122.51759820752751],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#6abf71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_e3d753e0829756259ee2744e1c2dff8f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_12b940cbf47c1157f164a85930088c0b = $(`<div id="html_12b940cbf47c1157f164a85930088c0b" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik062<br>           <b>GVI Rata-rata:</b> 0.2954<br>           <b>GVI Depan:</b> 0.3315<br>           <b>GVI Kiri:</b> 0.3294<br>           <b>GVI Kanan:</b> 0.2252           </div>`)[0];
+                popup_e3d753e0829756259ee2744e1c2dff8f.setContent(html_12b940cbf47c1157f164a85930088c0b);
+            
+        
+
+        circle_marker_4f9eb6a88203f6cbf00d448004a6a378.bindPopup(popup_e3d753e0829756259ee2744e1c2dff8f)
+        ;
+
+        
+    
+    
+            var circle_marker_7cbd2b95d88082edd975be14f2418aed = L.circleMarker(
+                [-3.9766349780519294, 122.51720731963034],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a4da9e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_0ca55a1bad243b4fadb45020d2c655c6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_987e4e3e12fe3cfcb943f02329520f7c = $(`<div id="html_987e4e3e12fe3cfcb943f02329520f7c" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik063<br>           <b>GVI Rata-rata:</b> 0.2073<br>           <b>GVI Depan:</b> 0.3513<br>           <b>GVI Kiri:</b> 0.1159<br>           <b>GVI Kanan:</b> 0.1547           </div>`)[0];
+                popup_0ca55a1bad243b4fadb45020d2c655c6.setContent(html_987e4e3e12fe3cfcb943f02329520f7c);
+            
+        
+
+        circle_marker_7cbd2b95d88082edd975be14f2418aed.bindPopup(popup_0ca55a1bad243b4fadb45020d2c655c6)
+        ;
+
+        
+    
+    
+            var circle_marker_00a3971d02bba4275621fd1b9b1863ce = L.circleMarker(
+                [-3.976448301378593, 122.51677900631124],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#5bb86a", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_aba9f65f29b0243b899bc009efb9bc03 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_671c05465e2d56aa9c9f43d85c6527c5 = $(`<div id="html_671c05465e2d56aa9c9f43d85c6527c5" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik064<br>           <b>GVI Rata-rata:</b> 0.3131<br>           <b>GVI Depan:</b> 0.3229<br>           <b>GVI Kiri:</b> 0.2273<br>           <b>GVI Kanan:</b> 0.3892           </div>`)[0];
+                popup_aba9f65f29b0243b899bc009efb9bc03.setContent(html_671c05465e2d56aa9c9f43d85c6527c5);
+            
+        
+
+        circle_marker_00a3971d02bba4275621fd1b9b1863ce.bindPopup(popup_aba9f65f29b0243b899bc009efb9bc03)
+        ;
+
+        
+    
+    
+            var circle_marker_d564a29bb0a08d1eefe949f14b67a740 = L.circleMarker(
+                [-3.9762657730326554, 122.5163881184248],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b7e2b1", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_c0a8032c5cb02980fa052a82b453fc23 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8ef81a74d69caf39f938cd115cf20c54 = $(`<div id="html_8ef81a74d69caf39f938cd115cf20c54" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik065<br>           <b>GVI Rata-rata:</b> 0.1728<br>           <b>GVI Depan:</b> 0.3261<br>           <b>GVI Kiri:</b> 0.0240<br>           <b>GVI Kanan:</b> 0.1683           </div>`)[0];
+                popup_c0a8032c5cb02980fa052a82b453fc23.setContent(html_8ef81a74d69caf39f938cd115cf20c54);
+            
+        
+
+        circle_marker_d564a29bb0a08d1eefe949f14b67a740.bindPopup(popup_c0a8032c5cb02980fa052a82b453fc23)
+        ;
+
+        
+    
+    
+            var circle_marker_574d158f3100473c7ee2f7dec684f568 = L.circleMarker(
+                [-3.9760790962749057, 122.51597020105862],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cdecc7", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_24008c7ec6c7ef5573d44436572ccfa9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5f1c70d8869fd822f601c290a15ccb96 = $(`<div id="html_5f1c70d8869fd822f601c290a15ccb96" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik066<br>           <b>GVI Rata-rata:</b> 0.1288<br>           <b>GVI Depan:</b> 0.0669<br>           <b>GVI Kiri:</b> 0.1846<br>           <b>GVI Kanan:</b> 0.1350           </div>`)[0];
+                popup_24008c7ec6c7ef5573d44436572ccfa9.setContent(html_5f1c70d8869fd822f601c290a15ccb96);
+            
+        
+
+        circle_marker_574d158f3100473c7ee2f7dec684f568.bindPopup(popup_24008c7ec6c7ef5573d44436572ccfa9)
+        ;
+
+        
+    
+    
+            var circle_marker_43ebae23e19374038003020d65c73f49 = L.circleMarker(
+                [-3.9758986420376408, 122.51556683803254],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c8e9c1", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_9544b4eaa6b77e36a90203e89f7ec457 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a0e1a14f20976aba24e30a57189cb34c = $(`<div id="html_a0e1a14f20976aba24e30a57189cb34c" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik067<br>           <b>GVI Rata-rata:</b> 0.1412<br>           <b>GVI Depan:</b> 0.1166<br>           <b>GVI Kiri:</b> 0.1994<br>           <b>GVI Kanan:</b> 0.1076           </div>`)[0];
+                popup_9544b4eaa6b77e36a90203e89f7ec457.setContent(html_a0e1a14f20976aba24e30a57189cb34c);
+            
+        
+
+        circle_marker_43ebae23e19374038003020d65c73f49.bindPopup(popup_9544b4eaa6b77e36a90203e89f7ec457)
+        ;
+
+        
+    
+    
+            var circle_marker_af6b26e60a52f3f3cf2d7ff899536226 = L.circleMarker(
+                [-3.975714039380578, 122.51514892066442],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#5bb86a", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_82d339c0b9cccb5dd1b12685d3f44de3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3f4b32b92027fb3f195d4b3301dedba9 = $(`<div id="html_3f4b32b92027fb3f195d4b3301dedba9" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik068<br>           <b>GVI Rata-rata:</b> 0.3138<br>           <b>GVI Depan:</b> 0.1458<br>           <b>GVI Kiri:</b> 0.4139<br>           <b>GVI Kanan:</b> 0.3816           </div>`)[0];
+                popup_82d339c0b9cccb5dd1b12685d3f44de3.setContent(html_3f4b32b92027fb3f195d4b3301dedba9);
+            
+        
+
+        circle_marker_af6b26e60a52f3f3cf2d7ff899536226.bindPopup(popup_82d339c0b9cccb5dd1b12685d3f44de3)
+        ;
+
+        
+    
+    
+            var circle_marker_e9f424460eb09867f9dd2de59eeebc58 = L.circleMarker(
+                [-3.9755335850569935, 122.51473932005824],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#afdfa8", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_6b922e5be050578462ecb36da0abc4a4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dc3638da623590ee1fd2891c4dbb678d = $(`<div id="html_dc3638da623590ee1fd2891c4dbb678d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik069<br>           <b>GVI Rata-rata:</b> 0.1877<br>           <b>GVI Depan:</b> 0.1705<br>           <b>GVI Kiri:</b> 0.2327<br>           <b>GVI Kanan:</b> 0.1598           </div>`)[0];
+                popup_6b922e5be050578462ecb36da0abc4a4.setContent(html_dc3638da623590ee1fd2891c4dbb678d);
+            
+        
+
+        circle_marker_e9f424460eb09867f9dd2de59eeebc58.bindPopup(popup_6b922e5be050578462ecb36da0abc4a4)
+        ;
+
+        
+    
+    
+            var circle_marker_a6224685082f6c1b6d1f88b1a4ec3f55 = L.circleMarker(
+                [-3.975344833947347, 122.51433179865042],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#077331", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_0fd35c0928c8e15286d00badd8d1e840 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_348e4dd9e6035308ec20091ba6750072 = $(`<div id="html_348e4dd9e6035308ec20091ba6750072" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik070<br>           <b>GVI Rata-rata:</b> 0.4745<br>           <b>GVI Depan:</b> 0.3239<br>           <b>GVI Kiri:</b> 0.6513<br>           <b>GVI Kanan:</b> 0.4483           </div>`)[0];
+                popup_0fd35c0928c8e15286d00badd8d1e840.setContent(html_348e4dd9e6035308ec20091ba6750072);
+            
+        
+
+        circle_marker_a6224685082f6c1b6d1f88b1a4ec3f55.bindPopup(popup_0fd35c0928c8e15286d00badd8d1e840)
+        ;
+
+        
+    
+    
+            var circle_marker_240b5a1945126189540367601f336990 = L.circleMarker(
+                [-3.975141563465304, 122.5138993269418],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9cd797", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_9e6d2e6a3d780c59ad3c371e94500bec = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_15b4c15c997b11fbcbe0ad35469f9b60 = $(`<div id="html_15b4c15c997b11fbcbe0ad35469f9b60" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik071<br>           <b>GVI Rata-rata:</b> 0.2189<br>           <b>GVI Depan:</b> 0.1739<br>           <b>GVI Kiri:</b> 0.2874<br>           <b>GVI Kanan:</b> 0.1953           </div>`)[0];
+                popup_9e6d2e6a3d780c59ad3c371e94500bec.setContent(html_15b4c15c997b11fbcbe0ad35469f9b60);
+            
+        
+
+        circle_marker_240b5a1945126189540367601f336990.bindPopup(popup_9e6d2e6a3d780c59ad3c371e94500bec)
+        ;
+
+        
+    
+    
+            var circle_marker_11375f51f60f70c477aa2b4227425d68 = L.circleMarker(
+                [-3.9749528122610167, 122.51350220148],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#88ce87", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_a7769cc5b25529f2e9f5572568ad1ef2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fb8fc4c6c65c70323958ec963a6795df = $(`<div id="html_fb8fc4c6c65c70323958ec963a6795df" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik072<br>           <b>GVI Rata-rata:</b> 0.2496<br>           <b>GVI Depan:</b> 0.1992<br>           <b>GVI Kiri:</b> 0.1912<br>           <b>GVI Kanan:</b> 0.3586           </div>`)[0];
+                popup_a7769cc5b25529f2e9f5572568ad1ef2.setContent(html_fb8fc4c6c65c70323958ec963a6795df);
+            
+        
+
+        circle_marker_11375f51f60f70c477aa2b4227425d68.bindPopup(popup_a7769cc5b25529f2e9f5572568ad1ef2)
+        ;
+
+        
+    
+    
+            var circle_marker_dbb63fa47ed0076b5c732b250c5eb9ad = L.circleMarker(
+                [-3.9747557642594975, 122.51310715521733],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2f974e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_32e385ad29877a466fba76ecede51e81 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a568a47073bcd723ce71a533d645f075 = $(`<div id="html_a568a47073bcd723ce71a533d645f075" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik073<br>           <b>GVI Rata-rata:</b> 0.3922<br>           <b>GVI Depan:</b> 0.4170<br>           <b>GVI Kiri:</b> 0.4824<br>           <b>GVI Kanan:</b> 0.2773           </div>`)[0];
+                popup_32e385ad29877a466fba76ecede51e81.setContent(html_a568a47073bcd723ce71a533d645f075);
+            
+        
+
+        circle_marker_dbb63fa47ed0076b5c732b250c5eb9ad.bindPopup(popup_32e385ad29877a466fba76ecede51e81)
+        ;
+
+        
+    
+    
+            var circle_marker_6c6cdad55974ad45fd93af707ca2bb4d = L.circleMarker(
+                [-3.974567012971778, 122.51271210895464],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#50b264", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_6a12e9ece42545da8524a566fb5d3575 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b2e69cefe335891b14323d620cfdccd8 = $(`<div id="html_b2e69cefe335891b14323d620cfdccd8" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik074<br>           <b>GVI Rata-rata:</b> 0.3282<br>           <b>GVI Depan:</b> 0.2969<br>           <b>GVI Kiri:</b> 0.2541<br>           <b>GVI Kanan:</b> 0.4334           </div>`)[0];
+                popup_6a12e9ece42545da8524a566fb5d3575.setContent(html_b2e69cefe335891b14323d620cfdccd8);
+            
+        
+
+        circle_marker_6c6cdad55974ad45fd93af707ca2bb4d.bindPopup(popup_6a12e9ece42545da8524a566fb5d3575)
+        ;
+
+        
+    
+    
+            var circle_marker_644dc64d538d62adc2cb6ffe0528cbf3 = L.circleMarker(
+                [-3.974374113252275, 122.51229627077169],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#92d28f", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_2bdd434270653d48c1cab56428a9a95c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cf66d3968a7a31ec3c02b463b3470a8a = $(`<div id="html_cf66d3968a7a31ec3c02b463b3470a8a" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik075<br>           <b>GVI Rata-rata:</b> 0.2352<br>           <b>GVI Depan:</b> 0.4610<br>           <b>GVI Kiri:</b> 0.2118<br>           <b>GVI Kanan:</b> 0.0329           </div>`)[0];
+                popup_2bdd434270653d48c1cab56428a9a95c.setContent(html_cf66d3968a7a31ec3c02b463b3470a8a);
+            
+        
+
+        circle_marker_644dc64d538d62adc2cb6ffe0528cbf3.bindPopup(popup_2bdd434270653d48c1cab56428a9a95c)
+        ;
+
+        
+    
+    
+            var circle_marker_fef92a78df7393a7af1b92de418bb212 = L.circleMarker(
+                [-3.974189510259537, 122.51189706612728],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#caeac3", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_15983a9bdca81d9ae5ec530fee148c9c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a0e0db2550294072e66626a0fda099f4 = $(`<div id="html_a0e0db2550294072e66626a0fda099f4" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik076<br>           <b>GVI Rata-rata:</b> 0.1366<br>           <b>GVI Depan:</b> 0.0733<br>           <b>GVI Kiri:</b> 0.1738<br>           <b>GVI Kanan:</b> 0.1628           </div>`)[0];
+                popup_15983a9bdca81d9ae5ec530fee148c9c.setContent(html_a0e0db2550294072e66626a0fda099f4);
+            
+        
+
+        circle_marker_fef92a78df7393a7af1b92de418bb212.bindPopup(popup_15983a9bdca81d9ae5ec530fee148c9c)
+        ;
+
+        
+    
+    
+            var circle_marker_ce706768ddcbaf091b5f19270bd5f939 = L.circleMarker(
+                [-3.973986239490901, 122.51148122794108],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d4eece", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_7167d5a157a0ca6f0133a93fd7d96268 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_031b69b75506dcaa9134cbdb21c7897e = $(`<div id="html_031b69b75506dcaa9134cbdb21c7897e" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik077<br>           <b>GVI Rata-rata:</b> 0.1127<br>           <b>GVI Depan:</b> 0.0710<br>           <b>GVI Kiri:</b> 0.2469<br>           <b>GVI Kanan:</b> 0.0202           </div>`)[0];
+                popup_7167d5a157a0ca6f0133a93fd7d96268.setContent(html_031b69b75506dcaa9134cbdb21c7897e);
+            
+        
+
+        circle_marker_ce706768ddcbaf091b5f19270bd5f939.bindPopup(popup_7167d5a157a0ca6f0133a93fd7d96268)
+        ;
+
+        
+    
+    
+            var circle_marker_84b859ab2b5fd978f254d2ed03bd925c = L.circleMarker(
+                [-3.973696143161528, 122.5110035164053],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e3f4de", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_09bfcdac75c830e1eb1a9173d529ad92 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d51aed7b294ca3738db48f93be0b8d6a = $(`<div id="html_d51aed7b294ca3738db48f93be0b8d6a" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik078<br>           <b>GVI Rata-rata:</b> 0.0790<br>           <b>GVI Depan:</b> 0.0884<br>           <b>GVI Kiri:</b> 0.0012<br>           <b>GVI Kanan:</b> 0.1474           </div>`)[0];
+                popup_09bfcdac75c830e1eb1a9173d529ad92.setContent(html_d51aed7b294ca3738db48f93be0b8d6a);
+            
+        
+
+        circle_marker_84b859ab2b5fd978f254d2ed03bd925c.bindPopup(popup_09bfcdac75c830e1eb1a9173d529ad92)
+        ;
+
+        
+    
+    
+            var circle_marker_4334550278f9b42747aa5cc511d2dcf4 = L.circleMarker(
+                [-3.973535888816327, 122.51057514169725],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f2faef", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_ab54ac075b167fb74f23e11f9f09ac0b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_28c6f9117c1436bdd7d3eca25fae17a1 = $(`<div id="html_28c6f9117c1436bdd7d3eca25fae17a1" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik079<br>           <b>GVI Rata-rata:</b> 0.0255<br>           <b>GVI Depan:</b> 0.0479<br>           <b>GVI Kiri:</b> 0.0197<br>           <b>GVI Kanan:</b> 0.0089           </div>`)[0];
+                popup_ab54ac075b167fb74f23e11f9f09ac0b.setContent(html_28c6f9117c1436bdd7d3eca25fae17a1);
+            
+        
+
+        circle_marker_4334550278f9b42747aa5cc511d2dcf4.bindPopup(popup_ab54ac075b167fb74f23e11f9f09ac0b)
+        ;
+
+        
+    
+    
+            var circle_marker_7982320ed1db63803ee871469f845ecc = L.circleMarker(
+                [-3.9733702926184216, 122.51014676697945],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c7e9c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f53e9bf59d738025ba71d5682ae56985 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a92f1effa482d687ed440b10d8777695 = $(`<div id="html_a92f1effa482d687ed440b10d8777695" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik080<br>           <b>GVI Rata-rata:</b> 0.1433<br>           <b>GVI Depan:</b> 0.1482<br>           <b>GVI Kiri:</b> 0.0006<br>           <b>GVI Kanan:</b> 0.2812           </div>`)[0];
+                popup_f53e9bf59d738025ba71d5682ae56985.setContent(html_a92f1effa482d687ed440b10d8777695);
+            
+        
+
+        circle_marker_7982320ed1db63803ee871469f845ecc.bindPopup(popup_f53e9bf59d738025ba71d5682ae56985)
+        ;
+
+        
+    
+    
+            var circle_marker_0f2d2a44d768540fbedee2d3ccd0032e = L.circleMarker(
+                [-3.973188670953104, 122.50975052037444],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e1f3dc", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_89d7512e450ce375252da77923c0cc92 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f3cf125071bcf75dae77375bd5490ff7 = $(`<div id="html_f3cf125071bcf75dae77375bd5490ff7" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik081<br>           <b>GVI Rata-rata:</b> 0.0837<br>           <b>GVI Depan:</b> 0.0568<br>           <b>GVI Kiri:</b> 0.0654<br>           <b>GVI Kanan:</b> 0.1289           </div>`)[0];
+                popup_89d7512e450ce375252da77923c0cc92.setContent(html_f3cf125071bcf75dae77375bd5490ff7);
+            
+        
+
+        circle_marker_0f2d2a44d768540fbedee2d3ccd0032e.bindPopup(popup_89d7512e450ce375252da77923c0cc92)
+        ;
+
+        
+    
+    
+            var circle_marker_eb13082d541e62fcf5c1b7c17ab9f3b6 = L.circleMarker(
+                [-3.9729581155531126, 122.50935422534498],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b7e2b1", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_72db49bc8659b0d5208893efb3d4d8ad = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e2f7dbdb7447d7dfb134892ee231686 = $(`<div id="html_9e2f7dbdb7447d7dfb134892ee231686" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik082<br>           <b>GVI Rata-rata:</b> 0.1720<br>           <b>GVI Depan:</b> 0.1307<br>           <b>GVI Kiri:</b> 0.0029<br>           <b>GVI Kanan:</b> 0.3823           </div>`)[0];
+                popup_72db49bc8659b0d5208893efb3d4d8ad.setContent(html_9e2f7dbdb7447d7dfb134892ee231686);
+            
+        
+
+        circle_marker_eb13082d541e62fcf5c1b7c17ab9f3b6.bindPopup(popup_72db49bc8659b0d5208893efb3d4d8ad)
+        ;
+
+        
+    
+    
+            var circle_marker_a2309e92bb7cf30edcce9f947def8d87 = L.circleMarker(
+                [-3.972479278925524, 122.50947095050483],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#349d53", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_09feac28f0a7a6dbb24859ea0fb37842 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_018f84be3a1c7cdc3f3f61d46ba902ec = $(`<div id="html_018f84be3a1c7cdc3f3f61d46ba902ec" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik083<br>           <b>GVI Rata-rata:</b> 0.3790<br>           <b>GVI Depan:</b> 0.2919<br>           <b>GVI Kiri:</b> 0.4573<br>           <b>GVI Kanan:</b> 0.3877           </div>`)[0];
+                popup_09feac28f0a7a6dbb24859ea0fb37842.setContent(html_018f84be3a1c7cdc3f3f61d46ba902ec);
+            
+        
+
+        circle_marker_a2309e92bb7cf30edcce9f947def8d87.bindPopup(popup_09feac28f0a7a6dbb24859ea0fb37842)
+        ;
+
+        
+    
+    
+            var circle_marker_a154216c8b3abb29cb6a87c9eec3c587 = L.circleMarker(
+                [-3.972060818976201, 122.50961838988977],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bee5b8", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_5e02606d9ab86afd10a3e1e342759ee2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_11b3cc182bdef2b6b2361dfdd7892244 = $(`<div id="html_11b3cc182bdef2b6b2361dfdd7892244" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik084<br>           <b>GVI Rata-rata:</b> 0.1595<br>           <b>GVI Depan:</b> 0.2782<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.2004           </div>`)[0];
+                popup_5e02606d9ab86afd10a3e1e342759ee2.setContent(html_11b3cc182bdef2b6b2361dfdd7892244);
+            
+        
+
+        circle_marker_a154216c8b3abb29cb6a87c9eec3c587.bindPopup(popup_5e02606d9ab86afd10a3e1e342759ee2)
+        ;
+
+        
+    
+    
+            var circle_marker_6b62d0532174ba0dd128f3c6ddd59e02 = L.circleMarker(
+                [-3.971643141549431, 122.50977282214396],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e7f6e2", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_365766508b03cf90fe5e1b06fc5e2ac1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8452916862a8bca5345b8e620158284d = $(`<div id="html_8452916862a8bca5345b8e620158284d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik085<br>           <b>GVI Rata-rata:</b> 0.0680<br>           <b>GVI Depan:</b> 0.0801<br>           <b>GVI Kiri:</b> 0.0910<br>           <b>GVI Kanan:</b> 0.0330           </div>`)[0];
+                popup_365766508b03cf90fe5e1b06fc5e2ac1.setContent(html_8452916862a8bca5345b8e620158284d);
+            
+        
+
+        circle_marker_6b62d0532174ba0dd128f3c6ddd59e02.bindPopup(popup_365766508b03cf90fe5e1b06fc5e2ac1)
+        ;
+
+        
+    
+    
+            var circle_marker_a51645b9b83307ac9a9744a8ae3b9e69 = L.circleMarker(
+                [-3.971178255940402, 122.5099489921522],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b7e2b1", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_5df24193086c0b7947f90c71cc89a082 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aa446fcafc41afe5c9faf2c2a6a48866 = $(`<div id="html_aa446fcafc41afe5c9faf2c2a6a48866" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik086<br>           <b>GVI Rata-rata:</b> 0.1720<br>           <b>GVI Depan:</b> 0.3807<br>           <b>GVI Kiri:</b> 0.0227<br>           <b>GVI Kanan:</b> 0.1125           </div>`)[0];
+                popup_5df24193086c0b7947f90c71cc89a082.setContent(html_aa446fcafc41afe5c9faf2c2a6a48866);
+            
+        
+
+        circle_marker_a51645b9b83307ac9a9744a8ae3b9e69.bindPopup(popup_5df24193086c0b7947f90c71cc89a082)
+        ;
+
+        
+    
+    
+            var circle_marker_0a71ca1d70b6229817d84793597ed9c1 = L.circleMarker(
+                [-3.970777697078901, 122.51011661816932],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#abdda5", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_ed485802f116ef0718d81fbdb21a0f7b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b43bffb88b3075ce558aa9e343e8b670 = $(`<div id="html_b43bffb88b3075ce558aa9e343e8b670" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik087<br>           <b>GVI Rata-rata:</b> 0.1939<br>           <b>GVI Depan:</b> 0.2242<br>           <b>GVI Kiri:</b> 0.0022<br>           <b>GVI Kanan:</b> 0.3553           </div>`)[0];
+                popup_ed485802f116ef0718d81fbdb21a0f7b.setContent(html_b43bffb88b3075ce558aa9e343e8b670);
+            
+        
+
+        circle_marker_0a71ca1d70b6229817d84793597ed9c1.bindPopup(popup_ed485802f116ef0718d81fbdb21a0f7b)
+        ;
+
+        
+    
+    
+            var circle_marker_f8868c7120bb56d98cbffadc143e69d8 = L.circleMarker(
+                [-3.9703460266424018, 122.5102959390254],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3ba458", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_a0f0e4bce13f84be7baab568e94c6f50 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_80938be7ba27dfb1f78ec2b951f20504 = $(`<div id="html_80938be7ba27dfb1f78ec2b951f20504" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik088<br>           <b>GVI Rata-rata:</b> 0.3634<br>           <b>GVI Depan:</b> 0.3873<br>           <b>GVI Kiri:</b> 0.5581<br>           <b>GVI Kanan:</b> 0.1448           </div>`)[0];
+                popup_a0f0e4bce13f84be7baab568e94c6f50.setContent(html_80938be7ba27dfb1f78ec2b951f20504);
+            
+        
+
+        circle_marker_f8868c7120bb56d98cbffadc143e69d8.bindPopup(popup_a0f0e4bce13f84be7baab568e94c6f50)
+        ;
+
+        
+    
+    
+            var circle_marker_bfe71b8c0bba487113b4cd70f21ff5ae = L.circleMarker(
+                [-3.969936935458888, 122.51047206146566],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b2e0ac", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_d183b803e81802470a52f2526253e5ea = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a7f99af778595137b441d4abe49e019f = $(`<div id="html_a7f99af778595137b441d4abe49e019f" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik089<br>           <b>GVI Rata-rata:</b> 0.1810<br>           <b>GVI Depan:</b> 0.2692<br>           <b>GVI Kiri:</b> 0.1763<br>           <b>GVI Kanan:</b> 0.0975           </div>`)[0];
+                popup_d183b803e81802470a52f2526253e5ea.setContent(html_a7f99af778595137b441d4abe49e019f);
+            
+        
+
+        circle_marker_bfe71b8c0bba487113b4cd70f21ff5ae.bindPopup(popup_d183b803e81802470a52f2526253e5ea)
+        ;
+
+        
+    
+    
+            var circle_marker_a69c86b128027654faf829694663b93e = L.circleMarker(
+                [-3.9695302011025984, 122.51066368636184],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#005e26", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_de110b0e382ce897ebd4e729a80eebc3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f03002836fd8144c4419fb8f01dc4bf7 = $(`<div id="html_f03002836fd8144c4419fb8f01dc4bf7" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik090<br>           <b>GVI Rata-rata:</b> 0.5115<br>           <b>GVI Depan:</b> 0.5753<br>           <b>GVI Kiri:</b> 0.2979<br>           <b>GVI Kanan:</b> 0.6613           </div>`)[0];
+                popup_de110b0e382ce897ebd4e729a80eebc3.setContent(html_f03002836fd8144c4419fb8f01dc4bf7);
+            
+        
+
+        circle_marker_a69c86b128027654faf829694663b93e.bindPopup(popup_de110b0e382ce897ebd4e729a80eebc3)
+        ;
+
+        
+    
+    
+            var circle_marker_bca6e55f7971988da04a93c15eea61d7 = L.circleMarker(
+                [-3.969111264516749, 122.51081861712224],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#78c679", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_c2a9454ad541a8fdc2bb2dfc04f19c58 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0a8b91f3738afeb52fa6d7ec9ac2a488 = $(`<div id="html_0a8b91f3738afeb52fa6d7ec9ac2a488" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik091<br>           <b>GVI Rata-rata:</b> 0.2747<br>           <b>GVI Depan:</b> 0.2079<br>           <b>GVI Kiri:</b> 0.0008<br>           <b>GVI Kanan:</b> 0.6153           </div>`)[0];
+                popup_c2a9454ad541a8fdc2bb2dfc04f19c58.setContent(html_0a8b91f3738afeb52fa6d7ec9ac2a488);
+            
+        
+
+        circle_marker_bca6e55f7971988da04a93c15eea61d7.bindPopup(popup_c2a9454ad541a8fdc2bb2dfc04f19c58)
+        ;
+
+        
+    
+    
+            var circle_marker_d18fc85d574a8283f70d6acdf2881bdc = L.circleMarker(
+                [-3.9686963950523753, 122.51098985639472],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f7fcf5", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f1d23477c4906e80f15647057d93e5ce = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_683ec5f9b897ee79b8751089c2746e3b = $(`<div id="html_683ec5f9b897ee79b8751089c2746e3b" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik092<br>           <b>GVI Rata-rata:</b> 0.0049<br>           <b>GVI Depan:</b> 0.0048<br>           <b>GVI Kiri:</b> 0.0030<br>           <b>GVI Kanan:</b> 0.0069           </div>`)[0];
+                popup_f1d23477c4906e80f15647057d93e5ce.setContent(html_683ec5f9b897ee79b8751089c2746e3b);
+            
+        
+
+        circle_marker_d18fc85d574a8283f70d6acdf2881bdc.bindPopup(popup_f1d23477c4906e80f15647057d93e5ce)
+        ;
+
+        
+    
+    
+            var circle_marker_0f3061802ff929123b234ccd98882934 = L.circleMarker(
+                [-3.968289660095345, 122.51116517278145],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6fcf4", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_64cd3015b69d966f52327f6b323080e1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a065482318d7abc642d3e02066e0072f = $(`<div id="html_a065482318d7abc642d3e02066e0072f" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik093<br>           <b>GVI Rata-rata:</b> 0.0079<br>           <b>GVI Depan:</b> 0.0159<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.0079           </div>`)[0];
+                popup_64cd3015b69d966f52327f6b323080e1.setContent(html_a065482318d7abc642d3e02066e0072f);
+            
+        
+
+        circle_marker_0f3061802ff929123b234ccd98882934.bindPopup(popup_64cd3015b69d966f52327f6b323080e1)
+        ;
+
+        
+    
+    
+            var circle_marker_f5be7a693c5191cfb2ce8d5cbcdaba17 = L.circleMarker(
+                [-3.9678585208087664, 122.51134864344004],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f3faf0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_97004e058c8d638cc10ddda4cd8170d0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d736e94f8e6478a33d8e6bdd56c8622f = $(`<div id="html_d736e94f8e6478a33d8e6bdd56c8622f" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik094<br>           <b>GVI Rata-rata:</b> 0.0210<br>           <b>GVI Depan:</b> 0.0563<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.0067           </div>`)[0];
+                popup_97004e058c8d638cc10ddda4cd8170d0.setContent(html_d736e94f8e6478a33d8e6bdd56c8622f);
+            
+        
+
+        circle_marker_f5be7a693c5191cfb2ce8d5cbcdaba17.bindPopup(popup_97004e058c8d638cc10ddda4cd8170d0)
+        ;
+
+        
+    
+    
+            var circle_marker_bcf6a22e60c8fa1a38b0847ddd0c71da = L.circleMarker(
+                [-3.968061888426832, 122.51176451033756],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f4fbf2", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_7483c6e29f96395ba9cb16731cc0db8c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_82a9dfc9c8888e8a9c9cdbe016d867e5 = $(`<div id="html_82a9dfc9c8888e8a9c9cdbe016d867e5" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik095<br>           <b>GVI Rata-rata:</b> 0.0168<br>           <b>GVI Depan:</b> 0.0314<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.0189           </div>`)[0];
+                popup_7483c6e29f96395ba9cb16731cc0db8c.setContent(html_82a9dfc9c8888e8a9c9cdbe016d867e5);
+            
+        
+
+        circle_marker_bcf6a22e60c8fa1a38b0847ddd0c71da.bindPopup(popup_7483c6e29f96395ba9cb16731cc0db8c)
+        ;
+
+        
+    
+    
+            var circle_marker_cbcf30c371171dd9d53bd32b8e5f26b9 = L.circleMarker(
+                [-3.968244766581957, 122.51217438718936],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cfecc9", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_3f0fb413f16aa7200a12fcd36f5850a8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ca303bff7e8aed7b4a082431e34bf8a7 = $(`<div id="html_ca303bff7e8aed7b4a082431e34bf8a7" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik096<br>           <b>GVI Rata-rata:</b> 0.1237<br>           <b>GVI Depan:</b> 0.3056<br>           <b>GVI Kiri:</b> 0.0587<br>           <b>GVI Kanan:</b> 0.0067           </div>`)[0];
+                popup_3f0fb413f16aa7200a12fcd36f5850a8.setContent(html_ca303bff7e8aed7b4a082431e34bf8a7);
+            
+        
+
+        circle_marker_cbcf30c371171dd9d53bd32b8e5f26b9.bindPopup(popup_3f0fb413f16aa7200a12fcd36f5850a8)
+        ;
+
+        
+    
+    
+            var circle_marker_a4134de66762e27337aac4d8a058b4bd = L.circleMarker(
+                [-3.968438865328349, 122.51257811001852],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e4f5df", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_4bf80b6af460b11c0af6a48c2dbee37d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f66e5b2d777ae52de39e00244f3b3fb1 = $(`<div id="html_f66e5b2d777ae52de39e00244f3b3fb1" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik097<br>           <b>GVI Rata-rata:</b> 0.0769<br>           <b>GVI Depan:</b> 0.2197<br>           <b>GVI Kiri:</b> 0.0111<br>           <b>GVI Kanan:</b> 0.0000           </div>`)[0];
+                popup_4bf80b6af460b11c0af6a48c2dbee37d.setContent(html_f66e5b2d777ae52de39e00244f3b3fb1);
+            
+        
+
+        circle_marker_a4134de66762e27337aac4d8a058b4bd.bindPopup(popup_4bf80b6af460b11c0af6a48c2dbee37d)
+        ;
+
+        
+    
+    
+            var circle_marker_2d9262ba1de33e8b9eb1fb7d2375a391 = L.circleMarker(
+                [-3.968632964029132, 122.5129818328477],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f2faf0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_1bd468d4eeaa8518ad82f3ef2c6aa117 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_952d0a7b55e7e8b363017defea9c7323 = $(`<div id="html_952d0a7b55e7e8b363017defea9c7323" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik098<br>           <b>GVI Rata-rata:</b> 0.0225<br>           <b>GVI Depan:</b> 0.0674<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.0000           </div>`)[0];
+                popup_1bd468d4eeaa8518ad82f3ef2c6aa117.setContent(html_952d0a7b55e7e8b363017defea9c7323);
+            
+        
+
+        circle_marker_2d9262ba1de33e8b9eb1fb7d2375a391.bindPopup(popup_1bd468d4eeaa8518ad82f3ef2c6aa117)
+        ;
+
+        
+    
+    
+            var circle_marker_87be467d317e129076e9cffe53fbd229 = L.circleMarker(
+                [-3.968827062684281, 122.51339528393784],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f2faef", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f9bac8297690e539152232588dc2a6d9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b400ba89c74bcc6393f420a11ccde6b8 = $(`<div id="html_b400ba89c74bcc6393f420a11ccde6b8" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik099<br>           <b>GVI Rata-rata:</b> 0.0250<br>           <b>GVI Depan:</b> 0.0479<br>           <b>GVI Kiri:</b> 0.0090<br>           <b>GVI Kanan:</b> 0.0183           </div>`)[0];
+                popup_f9bac8297690e539152232588dc2a6d9.setContent(html_b400ba89c74bcc6393f420a11ccde6b8);
+            
+        
+
+        circle_marker_87be467d317e129076e9cffe53fbd229.bindPopup(popup_f9bac8297690e539152232588dc2a6d9)
+        ;
+
+        
+    
+    
+            var circle_marker_e29c10c590962eb8c37ed53df1ad1668 = L.circleMarker(
+                [-3.9690890957963783, 122.51360444154813],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bbe4b4", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_5344f38c9a0f073731f6fe6930fb77b0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2415260df67b66e4efcb741a26a716c3 = $(`<div id="html_2415260df67b66e4efcb741a26a716c3" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik100<br>           <b>GVI Rata-rata:</b> 0.1658<br>           <b>GVI Depan:</b> 0.0894<br>           <b>GVI Kiri:</b> 0.2597<br>           <b>GVI Kanan:</b> 0.1483           </div>`)[0];
+                popup_5344f38c9a0f073731f6fe6930fb77b0.setContent(html_2415260df67b66e4efcb741a26a716c3);
+            
+        
+
+        circle_marker_e29c10c590962eb8c37ed53df1ad1668.bindPopup(popup_5344f38c9a0f073731f6fe6930fb77b0)
+        ;
+
+        
+    
+    
+            var circle_marker_cdc86736b4e75f5ee4edffbc57486b5a = L.circleMarker(
+                [-3.969503617839084, 122.51341090222904],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e8f6e4", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_5f9e647d3048973e1ea30122e7c5abca = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f0f5e6dcfcd84ce188aefe94ad49cb25 = $(`<div id="html_f0f5e6dcfcd84ce188aefe94ad49cb25" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik101<br>           <b>GVI Rata-rata:</b> 0.0618<br>           <b>GVI Depan:</b> 0.1396<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.0460           </div>`)[0];
+                popup_5f9e647d3048973e1ea30122e7c5abca.setContent(html_f0f5e6dcfcd84ce188aefe94ad49cb25);
+            
+        
+
+        circle_marker_cdc86736b4e75f5ee4edffbc57486b5a.bindPopup(popup_5f9e647d3048973e1ea30122e7c5abca)
+        ;
+
+        
+    
+    
+            var circle_marker_6b885de2065f3c5a1941def154a3e88f = L.circleMarker(
+                [-3.9699088568265206, 122.51324841680548],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#91d28e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_9776626fa483656551ef5759d15c52a0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c5ed634eeebc3e6b0e5ea65552a9027b = $(`<div id="html_c5ed634eeebc3e6b0e5ea65552a9027b" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik102<br>           <b>GVI Rata-rata:</b> 0.2358<br>           <b>GVI Depan:</b> 0.0798<br>           <b>GVI Kiri:</b> 0.0047<br>           <b>GVI Kanan:</b> 0.6230           </div>`)[0];
+                popup_9776626fa483656551ef5759d15c52a0.setContent(html_c5ed634eeebc3e6b0e5ea65552a9027b);
+            
+        
+
+        circle_marker_6b885de2065f3c5a1941def154a3e88f.bindPopup(popup_9776626fa483656551ef5759d15c52a0)
+        ;
+
+        
+    
+    
+            var circle_marker_4abfaf00dc3f129a8827e0096b9ddf5f = L.circleMarker(
+                [-3.9703430412470513, 122.51308012829918],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f2faf0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_e363c8a74fc84d1a128c436c6eb361dc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2ec4caf93697c007d6e61fb14aed7889 = $(`<div id="html_2ec4caf93697c007d6e61fb14aed7889" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik103<br>           <b>GVI Rata-rata:</b> 0.0228<br>           <b>GVI Depan:</b> 0.0075<br>           <b>GVI Kiri:</b> 0.0234<br>           <b>GVI Kanan:</b> 0.0377           </div>`)[0];
+                popup_e363c8a74fc84d1a128c436c6eb361dc.setContent(html_2ec4caf93697c007d6e61fb14aed7889);
+            
+        
+
+        circle_marker_4abfaf00dc3f129a8827e0096b9ddf5f.bindPopup(popup_e363c8a74fc84d1a128c436c6eb361dc)
+        ;
+
+        
+    
+    
+            var circle_marker_f0e849b88bc509f12f4fa3a6864365f6 = L.circleMarker(
+                [-3.970754068943509, 122.51291764287556],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6f5e1", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_b8286abb7ed143980ceb38b5853bc76d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5165eaaf5c2e80fb5528a4dd3af36cf1 = $(`<div id="html_5165eaaf5c2e80fb5528a4dd3af36cf1" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik104<br>           <b>GVI Rata-rata:</b> 0.0705<br>           <b>GVI Depan:</b> 0.0453<br>           <b>GVI Kiri:</b> 0.1660<br>           <b>GVI Kanan:</b> 0.0000           </div>`)[0];
+                popup_b8286abb7ed143980ceb38b5853bc76d.setContent(html_5165eaaf5c2e80fb5528a4dd3af36cf1);
+            
+        
+
+        circle_marker_f0e849b88bc509f12f4fa3a6864365f6.bindPopup(popup_b8286abb7ed143980ceb38b5853bc76d)
+        ;
+
+        
+    
+    
+            var circle_marker_cccc667979246083289ae76e29b9a713 = L.circleMarker(
+                [-3.971170885566588, 122.51272614218472],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e9f7e5", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_2ebc9fb77ebaa74c06db4ad28f8aca73 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b3660bbf11b74024b3ed4b24efb937ba = $(`<div id="html_b3660bbf11b74024b3ed4b24efb937ba" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik105<br>           <b>GVI Rata-rata:</b> 0.0575<br>           <b>GVI Depan:</b> 0.0687<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.1037           </div>`)[0];
+                popup_2ebc9fb77ebaa74c06db4ad28f8aca73.setContent(html_b3660bbf11b74024b3ed4b24efb937ba);
+            
+        
+
+        circle_marker_cccc667979246083289ae76e29b9a713.bindPopup(popup_2ebc9fb77ebaa74c06db4ad28f8aca73)
+        ;
+
+        
+    
+    
+            var circle_marker_08fd000db72fab86386397e97713b4fb = L.circleMarker(
+                [-3.973844113877843, 122.51429553321417],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1edcb", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_17b20bc0ac688d5fa455bb6c46b905cd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c740b0246ac47379f77afd834c1e43c8 = $(`<div id="html_c740b0246ac47379f77afd834c1e43c8" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik106<br>           <b>GVI Rata-rata:</b> 0.1211<br>           <b>GVI Depan:</b> 0.0927<br>           <b>GVI Kiri:</b> 0.0025<br>           <b>GVI Kanan:</b> 0.2682           </div>`)[0];
+                popup_17b20bc0ac688d5fa455bb6c46b905cd.setContent(html_c740b0246ac47379f77afd834c1e43c8);
+            
+        
+
+        circle_marker_08fd000db72fab86386397e97713b4fb.bindPopup(popup_17b20bc0ac688d5fa455bb6c46b905cd)
+        ;
+
+        
+    
+    
+            var circle_marker_17944bb4e8c5ae9ff0a09acc9dce4559 = L.circleMarker(
+                [-3.974251201039984, 122.51411771572246],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cfecc9", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f799c7e5d026ef4f06519da659dd397f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_97991ddad14a0ae261d161787b615b7d = $(`<div id="html_97991ddad14a0ae261d161787b615b7d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik107<br>           <b>GVI Rata-rata:</b> 0.1252<br>           <b>GVI Depan:</b> 0.1231<br>           <b>GVI Kiri:</b> 0.0000<br>           <b>GVI Kanan:</b> 0.2525           </div>`)[0];
+                popup_f799c7e5d026ef4f06519da659dd397f.setContent(html_97991ddad14a0ae261d161787b615b7d);
+            
+        
+
+        circle_marker_17944bb4e8c5ae9ff0a09acc9dce4559.bindPopup(popup_f799c7e5d026ef4f06519da659dd397f)
+        ;
+
+        
+    
+    
+            var circle_marker_7775bf33721afd416319262e5fee8e1b = L.circleMarker(
+                [-3.974678756061937, 122.51394445764642],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bee5b8", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_ff7166268915940086e4d706316e1cd8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ec3bd408693d27eab6958a9fde01ef9f = $(`<div id="html_ec3bd408693d27eab6958a9fde01ef9f" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik108<br>           <b>GVI Rata-rata:</b> 0.1590<br>           <b>GVI Depan:</b> 0.0649<br>           <b>GVI Kiri:</b> 0.0013<br>           <b>GVI Kanan:</b> 0.4108           </div>`)[0];
+                popup_ff7166268915940086e4d706316e1cd8.setContent(html_ec3bd408693d27eab6958a9fde01ef9f);
+            
+        
+
+        circle_marker_7775bf33721afd416319262e5fee8e1b.bindPopup(popup_ff7166268915940086e4d706316e1cd8)
+        ;
+
+        
+    
+    
+            var circle_marker_801536c8a2f3a6a50aed90dc959d9e61 = L.circleMarker(
+                [-3.9750744716766353, 122.51378487783944],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e3f4de", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_c2900d159e80225f25f5cae33864e107 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d4e7aef4e8c72e7f195db116c7b8d8cd = $(`<div id="html_d4e7aef4e8c72e7f195db116c7b8d8cd" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik109<br>           <b>GVI Rata-rata:</b> 0.0801<br>           <b>GVI Depan:</b> 0.1845<br>           <b>GVI Kiri:</b> 0.0135<br>           <b>GVI Kanan:</b> 0.0421           </div>`)[0];
+                popup_c2900d159e80225f25f5cae33864e107.setContent(html_d4e7aef4e8c72e7f195db116c7b8d8cd);
+            
+        
+
+        circle_marker_801536c8a2f3a6a50aed90dc959d9e61.bindPopup(popup_c2900d159e80225f25f5cae33864e107)
+        ;
+
+        
+    
+    
+            var circle_marker_c36225a27e280a57367de53d62488492 = L.circleMarker(
+                [-3.973114249418531, 122.5107104209038],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ecf8e8", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_6375d80401e842c8cd318b149a38bcf7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_599a9f7686a339b7d940f4adcbb7dfae = $(`<div id="html_599a9f7686a339b7d940f4adcbb7dfae" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik110<br>           <b>GVI Rata-rata:</b> 0.0472<br>           <b>GVI Depan:</b> 0.0886<br>           <b>GVI Kiri:</b> 0.0128<br>           <b>GVI Kanan:</b> 0.0402           </div>`)[0];
+                popup_6375d80401e842c8cd318b149a38bcf7.setContent(html_599a9f7686a339b7d940f4adcbb7dfae);
+            
+        
+
+        circle_marker_c36225a27e280a57367de53d62488492.bindPopup(popup_6375d80401e842c8cd318b149a38bcf7)
+        ;
+
+        
+    
+    
+            var circle_marker_9a71c2e71c4362fd4d087122b04ef956 = L.circleMarker(
+                [-3.972684652155852, 122.510912416532],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#83cb82", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_53bc40a653d607e9ca595ea8d42d7d9c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_245a7859efc685c23847eb20096372d6 = $(`<div id="html_245a7859efc685c23847eb20096372d6" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik111<br>           <b>GVI Rata-rata:</b> 0.2571<br>           <b>GVI Depan:</b> 0.1892<br>           <b>GVI Kiri:</b> 0.1934<br>           <b>GVI Kanan:</b> 0.3886           </div>`)[0];
+                popup_53bc40a653d607e9ca595ea8d42d7d9c.setContent(html_245a7859efc685c23847eb20096372d6);
+            
+        
+
+        circle_marker_9a71c2e71c4362fd4d087122b04ef956.bindPopup(popup_53bc40a653d607e9ca595ea8d42d7d9c)
+        ;
+
+        
+    
+    
+            var circle_marker_6c3d17f745f078c9e6d060752c5e3512 = L.circleMarker(
+                [-3.972312989594592, 122.51112543322316],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#80ca80", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_082b2340299d0caa47be814a67cd76d1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f224e453045fa8fce626a938267c6433 = $(`<div id="html_f224e453045fa8fce626a938267c6433" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik112<br>           <b>GVI Rata-rata:</b> 0.2633<br>           <b>GVI Depan:</b> 0.2544<br>           <b>GVI Kiri:</b> 0.3609<br>           <b>GVI Kanan:</b> 0.1744           </div>`)[0];
+                popup_082b2340299d0caa47be814a67cd76d1.setContent(html_f224e453045fa8fce626a938267c6433);
+            
+        
+
+        circle_marker_6c3d17f745f078c9e6d060752c5e3512.bindPopup(popup_082b2340299d0caa47be814a67cd76d1)
+        ;
+
+        
+    
+    
+            var circle_marker_4c42ed74ff29925ac28d0f8d8cce5c89 = L.circleMarker(
+                [-3.971900879262473, 122.51131609597564],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#aadda4", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_f3de5c087227e5b29eeca9e1321257d6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0254e647b52aefc741351ed914a2a8cc = $(`<div id="html_0254e647b52aefc741351ed914a2a8cc" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik113<br>           <b>GVI Rata-rata:</b> 0.1957<br>           <b>GVI Depan:</b> 0.2340<br>           <b>GVI Kiri:</b> 0.0607<br>           <b>GVI Kanan:</b> 0.2923           </div>`)[0];
+                popup_f3de5c087227e5b29eeca9e1321257d6.setContent(html_0254e647b52aefc741351ed914a2a8cc);
+            
+        
+
+        circle_marker_4c42ed74ff29925ac28d0f8d8cce5c89.bindPopup(popup_f3de5c087227e5b29eeca9e1321257d6)
+        ;
+
+        
+    
+    
+            var circle_marker_bbbd0793c7e71f579d58331cd134f77a = L.circleMarker(
+                [-3.971391889794496, 122.51039052543555],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d8f0d2", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_4cb7c6567d9161e2973d53b0882fc581 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_de01c9e46e791fc872c00d1d36497e58 = $(`<div id="html_de01c9e46e791fc872c00d1d36497e58" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik114<br>           <b>GVI Rata-rata:</b> 0.1062<br>           <b>GVI Depan:</b> 0.0801<br>           <b>GVI Kiri:</b> 0.0626<br>           <b>GVI Kanan:</b> 0.1759           </div>`)[0];
+                popup_4cb7c6567d9161e2973d53b0882fc581.setContent(html_de01c9e46e791fc872c00d1d36497e58);
+            
+        
+
+        circle_marker_bbbd0793c7e71f579d58331cd134f77a.bindPopup(popup_4cb7c6567d9161e2973d53b0882fc581)
+        ;
+
+        
+    
+    
+            var circle_marker_bc5837335d6e69820b8f85dbc89dbc97 = L.circleMarker(
+                [-3.971560960829162, 122.510814220441],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#edf8e9", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_133585002fe4285da2c121413232f307 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6cf07f8a1e665461bb54d597fca6cdb0 = $(`<div id="html_6cf07f8a1e665461bb54d597fca6cdb0" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik115<br>           <b>GVI Rata-rata:</b> 0.0438<br>           <b>GVI Depan:</b> 0.1309<br>           <b>GVI Kiri:</b> 0.0006<br>           <b>GVI Kanan:</b> 0.0000           </div>`)[0];
+                popup_133585002fe4285da2c121413232f307.setContent(html_6cf07f8a1e665461bb54d597fca6cdb0);
+            
+        
+
+        circle_marker_bc5837335d6e69820b8f85dbc89dbc97.bindPopup(popup_133585002fe4285da2c121413232f307)
+        ;
+
+        
+    
+    
+            var circle_marker_236be5ad6c2c4d4be359fe5e39908ae8 = L.circleMarker(
+                [-3.971751165707838, 122.51121673073166],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0a7633", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_d2bd8210f645fe2add8a2a57240f506d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c4ab03d02f4c368d4ee6f403229ea68b = $(`<div id="html_c4ab03d02f4c368d4ee6f403229ea68b" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik116<br>           <b>GVI Rata-rata:</b> 0.4663<br>           <b>GVI Depan:</b> 0.5824<br>           <b>GVI Kiri:</b> 0.4710<br>           <b>GVI Kanan:</b> 0.3456           </div>`)[0];
+                popup_d2bd8210f645fe2add8a2a57240f506d.setContent(html_c4ab03d02f4c368d4ee6f403229ea68b);
+            
+        
+
+        circle_marker_236be5ad6c2c4d4be359fe5e39908ae8.bindPopup(popup_d2bd8210f645fe2add8a2a57240f506d)
+        ;
+
+        
+    
+    
+            var circle_marker_3594b0f2b34ae264a20270310f60ea25 = L.circleMarker(
+                [-3.971958982092593, 122.51162277177852],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e7f6e3", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_a0fef0dd10ed0c312cf937b9872dd331 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b1a9137d4ce37f7f6b2f90b7cb04785d = $(`<div id="html_b1a9137d4ce37f7f6b2f90b7cb04785d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik117<br>           <b>GVI Rata-rata:</b> 0.0661<br>           <b>GVI Depan:</b> 0.0890<br>           <b>GVI Kiri:</b> 0.1088<br>           <b>GVI Kanan:</b> 0.0004           </div>`)[0];
+                popup_a0fef0dd10ed0c312cf937b9872dd331.setContent(html_b1a9137d4ce37f7f6b2f90b7cb04785d);
+            
+        
+
+        circle_marker_3594b0f2b34ae264a20270310f60ea25.bindPopup(popup_a0fef0dd10ed0c312cf937b9872dd331)
+        ;
+
+        
+    
+    
+            var circle_marker_ea55c832962e2fa87ff424ed9c430358 = L.circleMarker(
+                [-3.972152709183791, 122.51202881282543],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7cc87c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_6af57950a11438382cc9677b9e7f83e4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0bf49a83fabe2fd74b06522aab49595d = $(`<div id="html_0bf49a83fabe2fd74b06522aab49595d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik118<br>           <b>GVI Rata-rata:</b> 0.2691<br>           <b>GVI Depan:</b> 0.3969<br>           <b>GVI Kiri:</b> 0.2286<br>           <b>GVI Kanan:</b> 0.1817           </div>`)[0];
+                popup_6af57950a11438382cc9677b9e7f83e4.setContent(html_0bf49a83fabe2fd74b06522aab49595d);
+            
+        
+
+        circle_marker_ea55c832962e2fa87ff424ed9c430358.bindPopup(popup_6af57950a11438382cc9677b9e7f83e4)
+        ;
+
+        
+    
+    
+            var circle_marker_881e415fddf7152819ed106f5111dc3f = L.circleMarker(
+                [-3.968373261469405, 122.51375183932656],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c4e8bd", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_4880598c22156cfecdbc1f4debe5c893 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ad14f474994c73c6ad266b8e8b28fa0d = $(`<div id="html_ad14f474994c73c6ad266b8e8b28fa0d" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik119<br>           <b>GVI Rata-rata:</b> 0.1484<br>           <b>GVI Depan:</b> 0.3063<br>           <b>GVI Kiri:</b> 0.0319<br>           <b>GVI Kanan:</b> 0.1071           </div>`)[0];
+                popup_4880598c22156cfecdbc1f4debe5c893.setContent(html_ad14f474994c73c6ad266b8e8b28fa0d);
+            
+        
+
+        circle_marker_881e415fddf7152819ed106f5111dc3f.bindPopup(popup_4880598c22156cfecdbc1f4debe5c893)
+        ;
+
+        
+    
+    
+            var circle_marker_01ffcb49cf352b5ef0ef7e7603af18be = L.circleMarker(
+                [-3.967982283135311, 122.51393190970344],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#339c52", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_d92cb92bae54a5ceaf5a3bb10aef2f42);
+        
+    
+        var popup_dbd341dadd2deef924ea927fe5ad2aac = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_75822dee757fd1feee79595938091e14 = $(`<div id="html_75822dee757fd1feee79595938091e14" style="width: 100.0%; height: 100.0%;">           <b>Lokasi:</b> titik120<br>           <b>GVI Rata-rata:</b> 0.3820<br>           <b>GVI Depan:</b> 0.2894<br>           <b>GVI Kiri:</b> 0.4007<br>           <b>GVI Kanan:</b> 0.4558           </div>`)[0];
+                popup_dbd341dadd2deef924ea927fe5ad2aac.setContent(html_75822dee757fd1feee79595938091e14);
+            
+        
+
+        circle_marker_01ffcb49cf352b5ef0ef7e7603af18be.bindPopup(popup_dbd341dadd2deef924ea927fe5ad2aac)
+        ;
+
+        
+    
+</script>
+</html>
